@@ -31,13 +31,11 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { cart }                = useCart();
+  const { totalItems }          = useCart();
   const navigate                = useNavigate();
   const [search, setSearch]     = useState("");
   const [category, setCategory] = useState("All category");
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -45,157 +43,83 @@ export default function Navbar() {
   };
 
   return (
-    <header style={{
-      background: "#fff",
-      borderBottom: "1px solid #e8e8e8",
-      position: "sticky",
-      top: 0,
-      zIndex: 1000,
-      boxShadow: "0 1px 4px rgba(0,0,0,.06)"
-    }}>
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-[1000] shadow-sm">
 
       {/* ── Row 1: Logo + Search + Icons ───────────────────────── */}
-      <div style={{
-        maxWidth: 1200, margin: "0 auto",
-        padding: "10px 20px",
-        display: "flex", alignItems: "center", gap: 16
-      }}>
+      <div className="max-w-[1200px] mx-auto px-5 py-2.5 flex items-center gap-4">
 
         {/* Logo */}
-        <Link to="/" style={{ textDecoration: "none", minWidth: 110 }}>
-          <div style={{
-            background: "#2563eb", color: "#fff", borderRadius: 7,
-            padding: "6px 12px", fontSize: 15, fontWeight: 700,
-            display: "inline-flex", alignItems: "center", gap: 6,
-          }}>
-            🛒 Brand
-          </div>
+        <Link to="/" className="no-underline min-w-[110px]">
+          <img src="layout/Brand/logo-colored.png" alt="Brand" className="h-10 block" />
         </Link>
 
         {/* Search bar */}
-        <form onSubmit={handleSearch} style={{
-          flex: 1, display: "flex",
-          border: "1.5px solid #2563eb", borderRadius: 7, overflow: "hidden"
-        }}>
+        <form onSubmit={handleSearch} className="flex-1 flex border-2 border-blue-600 rounded-lg overflow-hidden">
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search"
-            style={{
-              flex: 1, padding: "9px 14px", border: "none", outline: "none",
-              fontSize: 13, background: "#fff", fontFamily: "inherit"
-            }}
+            className="flex-1 px-3.5 py-2 border-none outline-none text-[13px] bg-white font-sans"
           />
           <select
             value={category}
             onChange={e => setCategory(e.target.value)}
-            style={{
-              border: "none", borderLeft: "1px solid #ddd",
-              background: "#fff", padding: "0 10px",
-              fontSize: 12, color: "#555", cursor: "pointer",
-              outline: "none", fontFamily: "inherit"
-            }}
+            className="border-none border-l border-gray-300 bg-white px-2.5 text-xs text-gray-500 cursor-pointer outline-none font-sans"
           >
             {categories.map(c => <option key={c}>{c}</option>)}
           </select>
-          <button type="submit" style={{
-            background: "#2563eb", color: "#fff", border: "none",
-            padding: "0 20px", cursor: "pointer", fontSize: 13,
-            fontWeight: 600, display: "flex", alignItems: "center", gap: 6,
-            transition: "background .15s"
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-            onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-          >
-            <SearchIcon /> Search
+          <button type="submit" className="bg-blue-600 text-white border-none px-5 cursor-pointer text-[13px] font-semibold flex items-center gap-1.5 transition-colors hover:bg-blue-700">
+            <SearchIcon /> <span className="hidden md:inline">Search</span>
           </button>
         </form>
 
         {/* Right icon buttons */}
-        <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+        <div className="flex gap-1 items-center">
           {[
             { icon: <UserIcon />,    label: "Profile",  path: "/login" },
             { icon: <MessageIcon />, label: "Message",  path: "/" },
             { icon: <HeartIcon />,   label: "Wishlist", path: "/" },
           ].map(({ icon, label, path }) => (
-            <Link key={label} to={path} style={{
-              display: "flex", flexDirection: "column", alignItems: "center",
-              color: "#555", fontSize: 10, gap: 2, padding: "4px 8px",
-              textDecoration: "none", borderRadius: 6,
-              transition: "background .12s, color .12s"
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#eff6ff"; e.currentTarget.style.color = "#2563eb"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#555"; }}
-            >
+            <Link key={label} to={path} className="flex flex-col items-center text-gray-500 text-[10px] gap-0.5 px-2 py-1 no-underline rounded-md transition-all hover:bg-blue-50 hover:text-blue-600">
               {icon}
               <span>{label}</span>
             </Link>
           ))}
 
           {/* Cart */}
-          <Link to="/cart" style={{
-            display: "flex", flexDirection: "column", alignItems: "center",
-            color: "#555", fontSize: 10, gap: 2, padding: "4px 8px",
-            textDecoration: "none", borderRadius: 6, position: "relative",
-            transition: "background .12s, color .12s"
-          }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#eff6ff"; e.currentTarget.style.color = "#2563eb"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#555"; }}
-          >
+          <Link to="/cart" className="flex flex-col items-center text-gray-500 text-[10px] gap-0.5 px-2 py-1 no-underline rounded-md relative transition-all hover:bg-blue-50 hover:text-blue-600">
             <CartIcon />
             <span>My cart</span>
-            {cartCount > 0 && (
-              <span style={{
-                position: "absolute", top: 0, right: 4,
-                background: "#ef4444", color: "#fff",
-                borderRadius: "50%", width: 17, height: 17,
-                fontSize: 10, fontWeight: 700,
-                display: "flex", alignItems: "center", justifyContent: "center"
-              }}>{cartCount}</span>
+            {totalItems > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white rounded-full w-4 h-4 text-[9px] font-bold flex items-center justify-center border border-white">
+                {totalItems}
+              </span>
             )}
           </Link>
         </div>
       </div>
 
       {/* ── Row 2: Category nav + links ────────────────────────── */}
-      <div style={{ borderTop: "1px solid #f0f0f0" }}>
-        <div style={{
-          maxWidth: 1200, margin: "0 auto", padding: "0 20px",
-          display: "flex", alignItems: "center"
-        }}>
+      <div className="border-t border-gray-100 hidden md:block">
+        <div className="max-w-[1200px] mx-auto px-5 flex items-center">
 
           {/* All category dropdown */}
-          <div style={{ position: "relative" }}>
+          <div className="relative">
             <button
               onClick={() => setMenuOpen(v => !v)}
-              style={{
-                display: "flex", alignItems: "center", gap: 8,
-                padding: "12px 16px", background: "#2563eb", color: "#fff",
-                border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600,
-              }}
+              className="flex items-center gap-2 px-4 py-3 bg-blue-600 text-white border-none cursor-pointer text-[13px] font-semibold hover:bg-blue-700 transition-colors"
             >
               <MenuIcon /> All category <ChevronDown />
             </button>
 
             {menuOpen && (
-              <div style={{
-                position: "absolute", top: "100%", left: 0,
-                background: "#fff", border: "1px solid #e8e8e8",
-                borderRadius: "0 0 8px 8px", minWidth: 200,
-                boxShadow: "0 8px 24px rgba(0,0,0,.1)", zIndex: 200
-              }}>
+              <div className="absolute top-full left-0 bg-white border border-gray-200 rounded-b-lg min-w-[200px] shadow-xl z-[200]">
                 {categories.slice(1).map(cat => (
                   <Link
                     key={cat}
                     to={`/products?category=${encodeURIComponent(cat)}`}
                     onClick={() => setMenuOpen(false)}
-                    style={{
-                      display: "block", padding: "10px 16px",
-                      fontSize: 13, color: "#333", textDecoration: "none",
-                      borderBottom: "1px solid #f5f5f5", transition: "background .1s"
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.background = "#eff6ff"}
-                    onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                    className="block px-4 py-2.5 text-[13px] text-gray-700 no-underline border-b border-gray-50 transition-colors hover:bg-blue-50"
                   >{cat}</Link>
                 ))}
               </div>
@@ -203,34 +127,22 @@ export default function Navbar() {
           </div>
 
           {/* Nav links */}
-          {navLinks.map(({ label, path }) => (
-            <Link key={label} to={path} style={{
-              padding: "12px 16px", fontSize: 13, color: "#444",
-              textDecoration: "none", whiteSpace: "nowrap", transition: "color .15s"
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#2563eb"}
-              onMouseLeave={e => e.currentTarget.style.color = "#444"}
-            >{label}</Link>
-          ))}
+          <div className="flex">
+            {navLinks.map(({ label, path }) => (
+              <Link key={label} to={path} className="px-4 py-3 text-[13px] text-gray-600 no-underline whitespace-nowrap transition-colors hover:text-blue-600 font-medium">
+                {label}
+              </Link>
+            ))}
+          </div>
 
-          <div style={{ flex: 1 }} />
+          <div className="flex-1" />
 
           {/* Language / Ship to */}
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <button style={{
-              background: "none", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 4,
-              fontSize: 12, color: "#555", padding: "4px 8px", borderRadius: 4,
-              fontFamily: "inherit"
-            }}>
+          <div className="flex items-center gap-1">
+            <button className="bg-transparent border-none cursor-pointer flex items-center gap-1 text-xs text-gray-500 px-2 py-1 rounded hover:bg-gray-50 font-sans">
               English, USD <ChevronDown />
             </button>
-            <button style={{
-              background: "none", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 4,
-              fontSize: 12, color: "#555", padding: "4px 8px", borderRadius: 4,
-              fontFamily: "inherit"
-            }}>
+            <button className="bg-transparent border-none cursor-pointer flex items-center gap-1 text-xs text-gray-500 px-2 py-1 rounded hover:bg-gray-50 font-sans">
               Ship to 🇩🇪 <ChevronDown />
             </button>
           </div>
@@ -241,7 +153,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           onClick={() => setMenuOpen(false)}
-          style={{ position: "fixed", inset: 0, zIndex: 199 }}
+          className="fixed inset-0 z-[199]"
         />
       )}
     </header>

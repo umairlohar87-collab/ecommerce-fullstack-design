@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
-const Icon = ({ d, size = 16 }) => (
+const Icon = ({ d, size = 16, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d={d} />
   </svg>
 );
@@ -31,16 +31,15 @@ const AppleIcon = () => (
 function InputField({ label, type = "text", placeholder, value, onChange, icon, rightEl, error }) {
   const [focused, setFocused] = useState(false);
   return (
-    <div style={{ marginBottom: 16 }}>
-      <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>
+    <div className="mb-4">
+      <label className="block text-[13px] font-medium text-gray-700 mb-1.5">
         {label}
       </label>
-      <div style={{ position: "relative" }}>
+      <div className="relative">
         {icon && (
-          <span style={{
-            position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
-            color: focused ? "#2563eb" : "#9ca3af", pointerEvents: "none", transition: "color .15s",
-          }}>{icon}</span>
+          <span className={`absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-150 ${focused ? "text-blue-600" : "text-gray-400"}`}>
+            {icon}
+          </span>
         )}
         <input
           type={type}
@@ -49,24 +48,18 @@ function InputField({ label, type = "text", placeholder, value, onChange, icon, 
           onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          style={{
-            width: "100%", padding: "10px 14px",
-            paddingLeft: icon ? 38 : 14,
-            paddingRight: rightEl ? 40 : 14,
-            border: error ? "1.5px solid #ef4444" : focused ? "1.5px solid #2563eb" : "1.5px solid #e5e7eb",
-            borderRadius: 7, fontSize: 13, outline: "none",
-            fontFamily: "inherit", background: "#fff", color: "#111",
-            boxSizing: "border-box", transition: "border-color .15s",
-          }}
+          className={`w-full py-2.5 text-[13px] outline-none transition-all border rounded-lg bg-white text-gray-800 font-sans
+            ${icon ? "pl-[38px]" : "pl-3.5"}
+            ${rightEl ? "pr-10" : "pr-3.5"}
+            ${error ? "border-red-500" : focused ? "border-blue-600 shadow-[0_0_0_1px_#2563eb]" : "border-gray-200"}`}
         />
         {rightEl && (
-          <span style={{
-            position: "absolute", right: 12, top: "50%",
-            transform: "translateY(-50%)", cursor: "pointer", color: "#9ca3af",
-          }}>{rightEl}</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600 transition-colors">
+            {rightEl}
+          </span>
         )}
       </div>
-      {error && <p style={{ fontSize: 11, color: "#ef4444", margin: "4px 0 0" }}>{error}</p>}
+      {error && <p className="text-[11px] text-red-500 mt-1 font-medium">{error}</p>}
     </div>
   );
 }
@@ -105,89 +98,55 @@ export default function Login() {
   };
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "#f5f5f5", minHeight: "100vh",
-    }}>
+    <div className="bg-gray-100 min-h-screen font-sans">
 
       {/* ── HEADER ─────────────────────────────────────────── */}
-      <header style={{
-        background: "#fff", borderBottom: "1px solid #e8e8e8",
-        padding: "12px 20px", display: "flex",
-        alignItems: "center", justifyContent: "space-between",
-      }}>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <div style={{
-            background: "#2563eb", color: "#fff", borderRadius: 7,
-            padding: "6px 14px", fontSize: 15, fontWeight: 700,
-            display: "inline-flex", alignItems: "center", gap: 6,
-          }}>🛒 Brand</div>
+      <header className="bg-white border-b border-gray-200 px-5 py-3 flex items-center justify-between">
+        <Link to="/" className="no-underline">
+          <div className="bg-blue-600 text-white rounded-lg px-3.5 py-1.5 text-base font-bold flex items-center gap-1.5 shadow-sm">
+            🛒 Brand
+          </div>
         </Link>
-        <span style={{ fontSize: 13, color: "#888" }}>
+        <span className="text-[13px] text-gray-400 font-medium">
           Don't have an account?{" "}
-          <Link to="/register" style={{ color: "#2563eb", fontWeight: 600, textDecoration: "none" }}>
+          <Link to="/register" className="text-blue-600 font-bold hover:underline transition-all">
             Sign up
           </Link>
         </span>
       </header>
 
       {/* ── BODY ────────────────────────────────────────────── */}
-      <div style={{
-        maxWidth: 1000, margin: "0 auto", padding: "48px 20px",
-        display: "grid", gridTemplateColumns: "1fr 1fr",
-        gap: 48, alignItems: "center",
-      }}>
+      <div className="max-w-[1000px] mx-auto px-5 py-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         {/* ── LEFT: Branding panel ────────────────────────── */}
-        <div>
+        <div className="hidden md:block">
           {/* Blue card */}
-          <div style={{
-            background: "linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%)",
-            borderRadius: 16, padding: "40px 36px",
-            marginBottom: 20, position: "relative", overflow: "hidden",
-          }}>
+          <div className="relative bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 rounded-2xl p-10 pb-12 mb-5 overflow-hidden shadow-2xl">
             {/* Decorative circles */}
-            <div style={{
-              position: "absolute", top: -40, right: -40,
-              width: 160, height: 160, borderRadius: "50%",
-              background: "rgba(255,255,255,.08)",
-            }} />
-            <div style={{
-              position: "absolute", bottom: -30, left: -30,
-              width: 120, height: 120, borderRadius: "50%",
-              background: "rgba(255,255,255,.06)",
-            }} />
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/5" />
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/5" />
 
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                background: "rgba(255,255,255,.15)", borderRadius: 20,
-                padding: "4px 12px", fontSize: 12, color: "#bfdbfe",
-                marginBottom: 18,
-              }}>
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1 text-[11px] text-blue-100 mb-4.5 font-semibold backdrop-blur-sm border border-white/10">
                 ✦ Trusted by 2M+ users
               </div>
-              <h2 style={{ color: "#fff", fontSize: 26, fontWeight: 700, margin: "0 0 12px", lineHeight: 1.3 }}>
+              <h2 className="text-white text-[28px] font-bold mb-3 leading-tight mt-4">
                 Welcome back to<br />Brand
               </h2>
-              <p style={{ color: "#bfdbfe", fontSize: 13, lineHeight: 1.8, margin: "0 0 28px" }}>
+              <p className="text-blue-100 text-[13px] leading-relaxed mb-7 max-w-[320px]">
                 Sign in to access your orders, saved items, and exclusive member deals.
               </p>
 
               {/* Stats row */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }}>
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { value: "10K+", label: "Suppliers" },
                   { value: "2M+",  label: "Customers" },
                   { value: "50+",  label: "Countries" },
                 ].map(s => (
-                  <div key={s.label} style={{
-                    background: "rgba(255,255,255,.12)", borderRadius: 10,
-                    padding: "12px 10px", textAlign: "center",
-                    backdropFilter: "blur(4px)",
-                  }}>
-                    <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>{s.value}</div>
-                    <div style={{ fontSize: 11, color: "#bfdbfe", marginTop: 2 }}>{s.label}</div>
+                  <div key={s.label} className="bg-white/10 rounded-xl p-3 text-center backdrop-blur-md border border-white/5">
+                    <div className="text-[17px] font-bold text-white leading-tight">{s.value}</div>
+                    <div className="text-[10px] text-blue-200 mt-1 uppercase tracking-wider font-semibold">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -195,83 +154,62 @@ export default function Login() {
           </div>
 
           {/* Testimonial card */}
-          <div style={{
-            background: "#fff", border: "1px solid #e8e8e8",
-            borderRadius: 12, padding: "18px 20px",
-            display: "flex", gap: 14, alignItems: "flex-start",
-          }}>
+          <div className="bg-white border border-gray-200 rounded-2xl p-5 flex gap-4 items-start shadow-sm transition-transform hover:scale-[1.01]">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=48&q=80"
               alt="user"
-              style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
+              className="w-11 h-11 rounded-full object-cover flex-shrink-0 border border-gray-100"
             />
             <div>
-              <div style={{ display: "flex", gap: 1, marginBottom: 6 }}>
+              <div className="flex gap-0.5 mb-1.5 text-orange-400">
                 {[1,2,3,4,5].map(i => (
-                  <svg key={i} width={13} height={13} viewBox="0 0 24 24" fill="#f59e0b">
+                  <svg key={i} width={13} height={13} viewBox="0 0 24 24" fill="currentColor">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                   </svg>
                 ))}
               </div>
-              <p style={{ fontSize: 13, color: "#555", margin: "0 0 8px", lineHeight: 1.6 }}>
+              <p className="text-[13px] text-gray-500 mb-2 leading-relaxed italic">
                 "Brand made it incredibly easy to find quality suppliers. My business has grown 3x since joining!"
               </p>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#222" }}>Sarah Johnson</div>
-              <div style={{ fontSize: 11, color: "#888" }}>Small Business Owner</div>
+              <div className="text-[12px] font-bold text-gray-800">Sarah Johnson</div>
+              <div className="text-[11px] text-gray-400 font-medium">Small Business Owner</div>
             </div>
           </div>
         </div>
 
         {/* ── RIGHT: Login form ────────────────────────────── */}
-        <div style={{
-          background: "#fff", borderRadius: 12,
-          border: "1px solid #e8e8e8", padding: "36px 32px",
-          boxShadow: "0 2px 16px rgba(0,0,0,.05)",
-        }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px", color: "#1a1a2e" }}>
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-10 shadow-xl">
+          <h2 className="text-[24px] font-bold mb-1 text-gray-900 tracking-tight">
             Sign in
           </h2>
-          <p style={{ fontSize: 13, color: "#888", margin: "0 0 24px" }}>
+          <p className="text-[13px] text-gray-500 mb-7">
             Enter your credentials to access your account
           </p>
 
           {/* Social buttons */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
+          <div className="grid grid-cols-2 gap-3 mb-6">
             {[
               { icon: <GoogleIcon />, label: "Google" },
               { icon: <AppleIcon />,  label: "Apple"  },
             ].map(btn => (
-              <button key={btn.label} style={{
-                display: "flex", alignItems: "center", justifyContent: "center",
-                gap: 8, padding: "10px 0", border: "1.5px solid #e5e7eb",
-                borderRadius: 7, background: "#fff", cursor: "pointer",
-                fontSize: 13, fontWeight: 500, color: "#333",
-                fontFamily: "inherit", transition: "border-color .15s, background .15s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "#2563eb"; e.currentTarget.style.background = "#f8faff"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.background = "#fff"; }}
-              >
+              <button key={btn.label} className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-lg bg-white text-[13px] font-semibold text-gray-700 hover:border-blue-600 hover:bg-blue-50 transition-all shadow-sm">
                 {btn.icon}
-                <span>Continue with {btn.label}</span>
+                <span>{btn.label}</span>
               </button>
             ))}
           </div>
 
           {/* Divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
-            <span style={{ fontSize: 12, color: "#aaa" }}>or sign in with email</span>
-            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-[11px] text-gray-400 uppercase font-bold tracking-widest">or email</span>
+            <div className="flex-1 h-px bg-gray-100" />
           </div>
 
           {/* Global login error */}
           {loginError && (
-            <div style={{
-              background: "#fef2f2", border: "1px solid #fecaca",
-              borderRadius: 7, padding: "10px 14px", marginBottom: 16,
-              fontSize: 13, color: "#dc2626", display: "flex", alignItems: "center", gap: 8,
-            }}>
-              ⚠ {loginError}
+            <div className="bg-red-50 border border-red-100 rounded-lg p-3.5 mb-5 text-[13px] text-red-600 flex items-center gap-2 font-medium">
+              <span className="text-base">⚠</span> {loginError}
             </div>
           )}
 
@@ -290,7 +228,7 @@ export default function Login() {
             <InputField
               label="Password"
               type={showPass ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder="••••••••"
               value={password}
               onChange={e => setPassword(e.target.value)}
               icon={<LockIcon />}
@@ -303,56 +241,30 @@ export default function Login() {
             />
 
             {/* Remember me + Forgot */}
-            <div style={{
-              display: "flex", justifyContent: "space-between",
-              alignItems: "center", marginBottom: 22,
-            }}>
-              <label style={{
-                display: "flex", alignItems: "center", gap: 8,
-                cursor: "pointer", fontSize: 13, color: "#555",
-              }}>
-                <div onClick={() => setRemember(v => !v)} style={{
-                  width: 16, height: 16, borderRadius: 4, flexShrink: 0,
-                  border: remember ? "none" : "1.5px solid #ccc",
-                  background: remember ? "#2563eb" : "#fff",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  cursor: "pointer", transition: "background .15s",
-                }}>
+            <div className="flex justify-between items-center mb-7">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <div onClick={() => setRemember(v => !v)} className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${remember ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300 group-hover:border-blue-400"}`}>
                   {remember && (
-                    <svg width={10} height={10} viewBox="0 0 24 24" fill="none"
-                      stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6L9 17l-5-5"/>
                     </svg>
                   )}
                 </div>
-                Remember me
+                <span className="text-[13px] text-gray-600 font-medium group-hover:text-gray-900 transition-colors">Remember me</span>
               </label>
-              <a href="#" style={{ fontSize: 13, color: "#2563eb", textDecoration: "none", fontWeight: 500 }}>
+              <a href="#" className="text-[13px] text-blue-600 font-semibold hover:underline">
                 Forgot password?
               </a>
             </div>
 
             {/* Submit button */}
-            <button type="submit" disabled={loading} style={{
-              width: "100%", padding: "12px 0",
-              background: loading ? "#93c5fd" : "#2563eb",
-              color: "#fff", border: "none", borderRadius: 7,
-              fontSize: 14, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer",
-              fontFamily: "inherit", letterSpacing: ".3px",
-              display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-              transition: "background .15s",
-            }}
-              onMouseEnter={e => !loading && (e.currentTarget.style.background = "#1d4ed8")}
-              onMouseLeave={e => !loading && (e.currentTarget.style.background = "#2563eb")}
-            >
+            <button type="submit" disabled={loading} className={`w-full py-3 rounded-lg text-white text-[14px] font-bold shadow-lg transition-all flex items-center justify-center gap-2 tracking-wide
+              ${loading ? "bg-blue-400 cursor-not-allowed shadow-none" : "bg-blue-600 hover:bg-blue-700 hover:shadow-blue-200 active:scale-[0.98]"}`}>
               {loading ? (
                 <>
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none"
-                    stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
-                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
-                      <animateTransform attributeName="transform" type="rotate"
-                        from="0 12 12" to="360 12 12" dur=".8s" repeatCount="indefinite"/>
-                    </path>
+                  <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
                   Signing in…
                 </>
@@ -360,9 +272,9 @@ export default function Login() {
             </button>
 
             {/* Sign up link */}
-            <p style={{ textAlign: "center", fontSize: 13, color: "#888", margin: "18px 0 0" }}>
+            <p className="text-center text-[13px] text-gray-500 mt-6 font-medium">
               Don't have an account?{" "}
-              <Link to="/register" style={{ color: "#2563eb", fontWeight: 600, textDecoration: "none" }}>
+              <Link to="/register" className="text-blue-600 font-bold hover:underline">
                 Create one free
               </Link>
             </p>
@@ -371,16 +283,15 @@ export default function Login() {
       </div>
 
       {/* ── FOOTER ─────────────────────────────────────────── */}
-      <div style={{
-        borderTop: "1px solid #e8e8e8", background: "#fff",
-        padding: "16px 20px", textAlign: "center",
-        fontSize: 12, color: "#aaa",
-      }}>
-        © 2024 Brand. All rights reserved. &nbsp;·&nbsp;
-        <a href="#" style={{ color: "#888", textDecoration: "none" }}>Privacy Policy</a>
-        &nbsp;·&nbsp;
-        <a href="#" style={{ color: "#888", textDecoration: "none" }}>Terms of Service</a>
-      </div>
+      <footer className="border-t border-gray-200 bg-white py-5 px-5 text-center text-[12px] text-gray-400 font-medium">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-center items-center gap-4">
+          <span>© 2024 Brand. All rights reserved.</span>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-gray-600 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-600 transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

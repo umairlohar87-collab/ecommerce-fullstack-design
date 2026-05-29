@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar";
 import { useCart } from "../context/CartContext";
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
-const Icon = ({ d, size = 16 }) => (
+const Icon = ({ d, size = 16, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d={d} />
   </svg>
 );
@@ -29,7 +29,7 @@ const StarEmpty = () => (
 
 function Stars({ rating = 4, max = 5 }) {
   return (
-    <span style={{ display: "inline-flex", gap: 1, alignItems: "center" }}>
+    <span className="inline-flex gap-0.5 items-center">
       {Array.from({ length: max }, (_, i) =>
         i < rating ? <StarFilled key={i} /> : <StarEmpty key={i} />
       )}
@@ -59,12 +59,12 @@ const product = {
   protection: "Refund Policy",
   warranty: "2 years full warranty",
   images: [
-    "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80",
-    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80",
-    "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80",
-    "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&q=80",
-    "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&q=80",
-    "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80",
+    "layout/alibaba/Image/cloth/Bitmap.png",
+    "layout/alibaba/Image/cloth/image 24.png",
+    "layout/alibaba/Image/cloth/image 26.png",
+    "layout/alibaba/Image/cloth/image 30.png",
+    "layout/alibaba/Image/cloth/2 1.png",
+    "layout/alibaba/Image/cloth/Bitmap (2).png",
   ],
   specs: {
     Model: "#8786867",
@@ -84,20 +84,20 @@ const product = {
 };
 
 const relatedProducts = [
-  { id: 1, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=160&q=80" },
-  { id: 2, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=160&q=80" },
-  { id: 3, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=160&q=80" },
-  { id: 4, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=160&q=80" },
-  { id: 5, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=160&q=80" },
-  { id: 6, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=160&q=80" },
+  { id: 1, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/image 85.png" },
+  { id: 2, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/image 86.png" },
+  { id: 3, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/8.png" },
+  { id: 4, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/image 32.png" },
+  { id: 5, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/image 33.png" },
+  { id: 6, name: "Xiaomi Redmi 8 Original", price: "$32.00 - $40.00", img: "images/tech/image 34.png" },
 ];
 
 const youMayLike = [
-  { id: 1, name: "Men Blazers Sets Elegant Formal", price: "$7.00 – $99.50", img: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=80&q=80" },
-  { id: 2, name: "Man Shirt Sleeve Polo Contrast",  price: "$7.00 – $99.50", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=80&q=80" },
-  { id: 3, name: "Apple Watch Series Gray",         price: "$7.00 – $99.50", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=80" },
-  { id: 4, name: "Basketball Crew Socks Long Stuff", price: "$7.00 – $99.50", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&q=80" },
-  { id: 5, name: "New Summer Men's casual T-Shirts", price: "$7.00 – $99.50", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=80&q=80" },
+  { id: 1, name: "Men Blazers Sets Elegant Formal", price: "$7.00 – $99.50", img: "layout/alibaba/Image/cloth/image 24.png" },
+  { id: 2, name: "Man Shirt Sleeve Polo Contrast",  price: "$7.00 – $99.50", img: "layout/alibaba/Image/cloth/Bitmap.png" },
+  { id: 3, name: "Apple Watch Series Gray",         price: "$7.00 – $99.50", img: "images/tech/image 34.png" },
+  { id: 4, name: "Basketball Crew Socks Long Stuff", price: "$7.00 – $99.50", img: "layout/alibaba/Image/cloth/image 30.png" },
+  { id: 5, name: "New Summer Men's casual T-Shirts", price: "$7.00 – $99.50", img: "layout/alibaba/Image/cloth/image 26.png" },
 ];
 
 const tabs = ["Description", "Reviews", "Shipping", "About seller"];
@@ -117,22 +117,19 @@ export default function ProductDetails() {
   };
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "#f5f5f5", minHeight: "100vh", color: "#222",
-    }}>
+    <div className="bg-gray-100 min-h-screen font-sans text-gray-800">
 
       <Navbar />
 
       {/* ── BREADCRUMB ─────────────────────────────────────── */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #eee" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "10px 20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "#888" }}>
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-[1200px] mx-auto px-5 py-2.5">
+          <div className="flex items-center gap-1.5 text-[13px] text-gray-400">
             {["Home","Clothings","Men's wear","Summer clothing"].map((crumb, i, arr) => (
-              <span key={crumb} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span key={crumb} className="flex items-center gap-1.5">
                 {i < arr.length - 1
-                  ? <><Link to="/" style={{ color: "#888", textDecoration: "none" }}>{crumb}</Link><ChevronRight /></>
-                  : <span style={{ color: "#333" }}>{crumb}</span>
+                  ? <><Link to="/" className="hover:text-blue-600 transition-colors">{crumb}</Link><ChevronRight /></>
+                  : <span className="text-gray-700 font-medium">{crumb}</span>
                 }
               </span>
             ))}
@@ -140,33 +137,24 @@ export default function ProductDetails() {
         </div>
       </div>
 
-      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "20px 20px" }}>
+      <main className="max-w-[1200px] mx-auto px-5 py-5">
 
         {/* ── PRODUCT TOP SECTION ─────────────────────────── */}
-        <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e8e8e8", padding: 24, marginBottom: 16 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "300px 1fr 240px", gap: 28 }}>
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-4 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[300px_1fr_240px] gap-8">
 
             {/* ── LEFT: Images ─────────────────────────────── */}
             <div>
               {/* Main image */}
-              <div style={{
-                border: "1px solid #e8e8e8", borderRadius: 8, overflow: "hidden",
-                marginBottom: 12, height: 260, background: "#f8f8f8",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <img src={product.images[activeImg]} alt="product"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div className="border border-gray-100 rounded-xl overflow-hidden mb-3 h-[300px] bg-gray-50 flex items-center justify-center shadow-inner">
+                <img src={product.images[activeImg]} alt="product" className="w-full h-full object-cover" />
               </div>
 
               {/* Thumbnails */}
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <div className="flex gap-2.5 overflow-x-auto pb-1">
                 {product.images.map((img, i) => (
-                  <div key={i} onClick={() => setActiveImg(i)} style={{
-                    width: 48, height: 48, borderRadius: 6, overflow: "hidden",
-                    border: activeImg === i ? "2px solid #2563eb" : "1.5px solid #e0e0e0",
-                    cursor: "pointer", flexShrink: 0,
-                  }}>
-                    <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div key={i} onClick={() => setActiveImg(i)} className={`w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer transition-all border-2 ${activeImg === i ? "border-blue-600 scale-105 shadow-md" : "border-gray-100 hover:border-blue-200"}`}>
+                    <img src={img} alt="" className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
@@ -175,53 +163,41 @@ export default function ProductDetails() {
             {/* ── MIDDLE: Product Info ──────────────────────── */}
             <div>
               {/* In stock badge */}
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: 5,
-                background: "#f0fdf4", border: "1px solid #bbf7d0",
-                borderRadius: 4, padding: "3px 10px", marginBottom: 10,
-              }}>
-                <span style={{ color: "#16a34a", fontSize: 11 }}>✓</span>
-                <span style={{ color: "#16a34a", fontSize: 12, fontWeight: 500 }}>In stock</span>
+              <div className="inline-flex items-center gap-1.5 bg-green-50 border border-green-100 rounded-lg px-3 py-1 mb-3">
+                <span className="text-green-600 text-[10px] font-bold">✓</span>
+                <span className="text-green-600 text-xs font-bold uppercase tracking-wider">In stock</span>
               </div>
 
               {/* Name */}
-              <h1 style={{ fontSize: 18, fontWeight: 700, color: "#1a1a2e", margin: "0 0 10px", lineHeight: 1.4 }}>
+              <h1 className="text-xl font-bold text-gray-900 mb-3 leading-tight tracking-tight">
                 {product.name}
               </h1>
 
               {/* Rating row */}
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+              <div className="flex items-center gap-3 mb-5 flex-wrap text-xs text-gray-400 font-medium">
                 <Stars rating={4} />
-                <span style={{ fontSize: 12, color: "#888" }}>{product.rating}</span>
-                <span style={{ fontSize: 12, color: "#ccc" }}>|</span>
-                <span style={{ fontSize: 12, color: "#888" }}>{product.reviews} reviews</span>
-                <span style={{ fontSize: 12, color: "#ccc" }}>|</span>
-                <span style={{ fontSize: 12, color: "#888" }}>{product.sold} sold</span>
+                <span className="text-orange-500 font-bold">{product.rating}</span>
+                <span className="text-gray-200">|</span>
+                <span>{product.reviews} reviews</span>
+                <span className="text-gray-200">|</span>
+                <span>{product.sold} sold</span>
               </div>
 
               {/* Price tiers */}
-              <div style={{
-                display: "flex", gap: 0, border: "1px solid #e0e0e0",
-                borderRadius: 6, overflow: "hidden", marginBottom: 16, alignSelf: "flex-start",
-                width: "fit-content",
-              }}>
+              <div className="flex border border-gray-100 rounded-xl overflow-hidden mb-6 bg-gray-50/30 w-fit shadow-sm">
                 {product.prices.map((tier, i) => (
-                  <div key={i} style={{
-                    padding: "8px 16px", textAlign: "center",
-                    borderRight: i < product.prices.length - 1 ? "1px solid #e0e0e0" : "none",
-                    background: i === 1 ? "#fff7f0" : "#fff",
-                  }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: i === 1 ? "#e85d04" : "#222" }}>
+                  <div key={i} className={`px-5 py-3 text-center border-r border-gray-100 last:border-0 ${i === 1 ? "bg-orange-50/50" : "bg-white"}`}>
+                    <div className={`text-[17px] font-black ${i === 1 ? "text-orange-600" : "text-gray-900"}`}>
                       {tier.price}
                     </div>
-                    <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>{tier.range}</div>
+                    <div className="text-[10px] text-gray-400 mt-1 uppercase font-bold tracking-widest">{tier.range}</div>
                   </div>
                 ))}
               </div>
 
               {/* Specs table */}
-              <table style={{ borderCollapse: "collapse", width: "100%", marginBottom: 12 }}>
-                <tbody>
+              <table className="w-full mb-4">
+                <tbody className="divide-y divide-gray-50">
                   {[
                     ["Price",          "Negotiable"],
                     ["Type",           product.type],
@@ -232,10 +208,10 @@ export default function ProductDetails() {
                     ["Warranty",       product.warranty],
                   ].map(([key, val]) => (
                     <tr key={key}>
-                      <td style={{ padding: "5px 0", fontSize: 13, color: "#888", width: 120, verticalAlign: "top" }}>
+                      <td className="py-2 text-[13px] text-gray-400 font-medium w-32 align-top">
                         {key}:
                       </td>
-                      <td style={{ padding: "5px 0", fontSize: 13, color: "#333", fontWeight: 500 }}>
+                      <td className="py-2 text-[13px] text-gray-700 font-semibold">
                         {val}
                       </td>
                     </tr>
@@ -245,181 +221,161 @@ export default function ProductDetails() {
             </div>
 
             {/* ── RIGHT: Supplier + Actions ─────────────────── */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div className="flex flex-col gap-3">
 
               {/* Supplier card */}
-              <div style={{ border: "1px solid #e8e8e8", borderRadius: 8, padding: 14 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                  <div style={{
-                    width: 36, height: 36, borderRadius: "50%", background: "#2563eb",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#fff", fontWeight: 700, fontSize: 14, flexShrink: 0,
-                  }}>R</div>
+              <div className="border border-gray-200 rounded-xl p-5 shadow-sm bg-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-100 flex-shrink-0">
+                    R
+                  </div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "#222" }}>Supplier</div>
-                    <div style={{ fontSize: 12, color: "#888" }}>Guanjia Trading LLC</div>
+                    <div className="text-[13px] font-bold text-gray-800">Supplier</div>
+                    <div className="text-[12px] text-gray-400 font-medium">Guanjia Trading LLC</div>
                   </div>
                 </div>
 
                 {/* Location + badges */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "#555" }}>
-                    <span>🇩🇪</span> Germany, Berlin
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+                    <span className="text-lg">🇩🇪</span> Germany, Berlin
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "#16a34a" }}>
-                    <ShieldIcon /> Verified Seller
+                  <div className="flex items-center gap-2 text-xs text-green-600 font-bold">
+                    <ShieldIcon className="text-green-500" /> Verified Seller
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "#555" }}>
-                    <TruckIcon /> Worldwide shipping
+                  <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
+                    <TruckIcon className="text-gray-400" /> Worldwide shipping
                   </div>
                 </div>
               </div>
 
               {/* Action buttons */}
-              <button onClick={handleAddToCart} style={{
-                width: "100%", padding: "11px 0", background: "#2563eb", color: "#fff",
-                border: "none", borderRadius: 6, fontSize: 13, fontWeight: 600,
-                cursor: "pointer", transition: "background .15s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-                onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-              >
+              <button onClick={handleAddToCart} className="w-full py-3 bg-blue-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 active:scale-[0.98] transition-all tracking-wide mt-2">
                 Send Inquiry
               </button>
 
-              <button style={{
-                width: "100%", padding: "11px 0", background: "#fff", color: "#2563eb",
-                border: "1.5px solid #2563eb", borderRadius: 6, fontSize: 13, fontWeight: 600,
-                cursor: "pointer", transition: "background .15s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.background = "#eff6ff"}
-                onMouseLeave={e => e.currentTarget.style.background = "#fff"}
-              >
+              <button className="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-xl text-sm font-bold hover:bg-blue-50 transition-all active:scale-[0.98]">
                 Seller's profile
               </button>
 
               {/* Save for later */}
-              <button onClick={() => setSaved(v => !v)} style={{
-                background: "none", border: "none", cursor: "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                gap: 6, fontSize: 13, color: saved ? "#ef4444" : "#888",
-                padding: "4px 0",
-              }}>
-                <HeartIcon /> {saved ? "Saved" : "Save for later"}
+              <button onClick={() => setSaved(v => !v)} className={`flex items-center justify-center gap-2 py-2 text-[13px] font-bold transition-all hover:scale-105 ${saved ? "text-red-500" : "text-gray-400 hover:text-gray-600"}`}>
+                <HeartIcon className={saved ? "fill-red-500 stroke-red-500" : ""} /> {saved ? "Saved" : "Save for later"}
               </button>
             </div>
           </div>
         </div>
 
         {/* ── TABS + DESCRIPTION + YOU MAY LIKE ──────────────── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: 16, marginBottom: 16 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-4 mb-4">
 
           {/* Tabs + content */}
-          <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e8e8e8" }}>
+          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
 
             {/* Tab bar */}
-            <div style={{ display: "flex", borderBottom: "1px solid #e8e8e8" }}>
+            <div className="flex border-b border-gray-100 bg-gray-50/50 px-2">
               {tabs.map(tab => (
-                <button key={tab} onClick={() => setActiveTab(tab)} style={{
-                  padding: "12px 18px", background: "none", border: "none",
-                  cursor: "pointer", fontSize: 13, fontWeight: activeTab === tab ? 600 : 400,
-                  color: activeTab === tab ? "#2563eb" : "#555",
-                  borderBottom: activeTab === tab ? "2px solid #2563eb" : "2px solid transparent",
-                  marginBottom: -1, transition: "color .15s",
-                  fontFamily: "inherit",
-                }}>{tab}</button>
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`px-6 py-4 text-[13px] font-bold transition-all relative border-b-2
+                  ${activeTab === tab ? "text-blue-600 border-blue-600 bg-white" : "text-gray-400 border-transparent hover:text-gray-600"}`}>
+                  {tab}
+                </button>
               ))}
             </div>
 
-            <div style={{ padding: "20px 24px" }}>
+            <div className="p-6 sm:p-8">
               {activeTab === "Description" && (
-                <>
-                  <p style={{ fontSize: 13, color: "#555", lineHeight: 1.8, marginTop: 0, marginBottom: 20 }}>
+                <div className="animate-in fade-in duration-300">
+                  <p className="text-[14px] text-gray-500 leading-relaxed mb-8">
                     {product.description}
                   </p>
 
                   {/* Specs table */}
-                  <table style={{ borderCollapse: "collapse", width: "100%", marginBottom: 20 }}>
-                    <tbody>
-                      {Object.entries(product.specs).map(([key, val]) => (
-                        <tr key={key} style={{ borderBottom: "1px solid #f5f5f5" }}>
-                          <td style={{ padding: "8px 0", fontSize: 13, color: "#888", width: 140 }}>{key}</td>
-                          <td style={{ padding: "8px 0", fontSize: 13, color: "#333" }}>{val}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <div className="overflow-x-auto border border-gray-50 rounded-xl mb-8">
+                    <table className="w-full">
+                      <tbody className="divide-y divide-gray-50">
+                        {Object.entries(product.specs).map(([key, val]) => (
+                          <tr key={key} className="hover:bg-gray-50 transition-colors">
+                            <td className="px-5 py-3 text-[13px] text-gray-400 font-bold uppercase tracking-wider w-40">{key}</td>
+                            <td className="px-5 py-3 text-[13px] text-gray-700 font-semibold">{val}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
                   {/* Features */}
-                  <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {product.features.map((f, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 7 }}>
-                        <span style={{ color: "#16a34a", marginTop: 1 }}>✓</span>
-                        <span style={{ fontSize: 13, color: "#555" }}>{f}</span>
+                      <div key={i} className="flex items-start gap-3 p-3 bg-gray-50/50 rounded-lg border border-gray-100">
+                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckIcon className="text-green-600" />
+                        </div>
+                        <span className="text-[13px] text-gray-600 font-medium leading-tight">{f}</span>
                       </div>
                     ))}
                   </div>
-                </>
+                </div>
               )}
               {activeTab === "Reviews" && (
-                <p style={{ fontSize: 13, color: "#888" }}>No reviews yet.</p>
+                <div className="text-center py-12 animate-in fade-in duration-300">
+                  <div className="text-4xl mb-4">💬</div>
+                  <p className="text-[13px] text-gray-400 font-bold uppercase tracking-widest">No reviews yet.</p>
+                </div>
               )}
               {activeTab === "Shipping" && (
-                <p style={{ fontSize: 13, color: "#888" }}>Free worldwide shipping on all orders.</p>
+                <div className="animate-in fade-in duration-300 flex items-center gap-4 p-5 bg-blue-50 border border-blue-100 rounded-xl">
+                  <div className="text-2xl">🚚</div>
+                  <div>
+                    <p className="text-[13px] text-blue-900 font-bold">Free worldwide shipping</p>
+                    <p className="text-[11px] text-blue-700 opacity-70">On all orders above $500. Securely packed and tracked.</p>
+                  </div>
+                </div>
               )}
               {activeTab === "About seller" && (
-                <p style={{ fontSize: 13, color: "#888" }}>Guanjia Trading LLC — Verified seller based in Germany.</p>
+                <div className="animate-in fade-in duration-300 p-5 border border-gray-100 rounded-xl">
+                  <h5 className="font-bold text-gray-800 mb-2">Guanjia Trading LLC</h5>
+                  <p className="text-[13px] text-gray-500 leading-relaxed">Verified seller based in Germany. Specializing in high-quality textile and electronic products since 2015.</p>
+                </div>
               )}
             </div>
           </div>
 
           {/* You may like */}
-          <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e8e8e8", padding: 16 }}>
-            <h4 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 14px" }}>You may like</h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {youMayLike.map(item => (
-                <div key={item.id} style={{
-                  display: "flex", gap: 10, cursor: "pointer", paddingBottom: 12,
-                  borderBottom: "1px solid #f5f5f5",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = ".8"}
-                  onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-                >
-                  <img src={item.img} alt={item.name} style={{
-                    width: 50, height: 50, objectFit: "cover",
-                    borderRadius: 6, border: "1px solid #eee", flexShrink: 0,
-                  }} />
-                  <div>
-                    <div style={{ fontSize: 12, fontWeight: 500, color: "#222", lineHeight: 1.4, marginBottom: 4 }}>
-                      {item.name}
+          <aside>
+            <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+              <h4 className="text-[14px] font-bold text-gray-800 mb-5 uppercase tracking-wider">You may like</h4>
+              <div className="space-y-5">
+                {youMayLike.map(item => (
+                  <div key={item.id} className="flex gap-4 group cursor-pointer border-b border-gray-50 pb-5 last:border-0 last:pb-0">
+                    <img src={item.img} alt={item.name} className="w-14 h-14 object-cover rounded-lg border border-gray-100 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <div>
+                      <div className="text-[12px] font-bold text-gray-700 leading-tight mb-1 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        {item.name}
+                      </div>
+                      <div className="text-[11px] text-gray-400 font-black">{item.price}</div>
                     </div>
-                    <div style={{ fontSize: 12, color: "#888" }}>{item.price}</div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          </aside>
         </div>
 
         {/* ── RELATED PRODUCTS ────────────────────────────────── */}
-        <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e8e8e8", padding: "20px 24px", marginBottom: 16 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 16px" }}>Related products</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 12 }}>
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-4 shadow-sm">
+          <h3 className="text-base font-bold text-gray-800 mb-6 uppercase tracking-widest">Related products</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             {relatedProducts.map(item => (
-              <div key={item.id} style={{
-                border: "1px solid #e8e8e8", borderRadius: 8, overflow: "hidden",
-                cursor: "pointer", transition: "box-shadow .18s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"}
-                onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-              >
-                <img src={item.img} alt={item.name}
-                  style={{ width: "100%", height: 110, objectFit: "cover", display: "block" }} />
-                <div style={{ padding: "8px 10px" }}>
-                  <div style={{ fontSize: 12, fontWeight: 500, color: "#222", marginBottom: 4, lineHeight: 1.3 }}>
+              <div key={item.id} className="group cursor-pointer">
+                <div className="border border-gray-100 rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-md transition-all relative">
+                  <img src={item.img} alt={item.name} className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+                </div>
+                <div>
+                  <div className="text-[12px] font-bold text-gray-800 leading-snug mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">
                     {item.name}
                   </div>
-                  <div style={{ fontSize: 12, color: "#888" }}>{item.price}</div>
+                  <div className="text-[11px] text-gray-400 font-black">{item.price}</div>
                 </div>
               </div>
             ))}
@@ -427,146 +383,99 @@ export default function ProductDetails() {
         </div>
 
         {/* ── SUPER DISCOUNT BANNER ───────────────────────────── */}
-        <div style={{
-          background: "linear-gradient(90deg,#1e3a8a 0%,#2563eb 100%)",
-          borderRadius: 8, padding: "18px 28px", marginBottom: 16,
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-        }}>
+        <div className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-blue-100">
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 4 }}>
+            <div className="text-[20px] font-black text-white mb-1.5 tracking-tight text-center sm:text-left">
               Super discount on more than 100 USD
             </div>
-            <div style={{ fontSize: 13, color: "#bfdbfe" }}>
+            <div className="text-[13px] text-blue-100 font-medium text-center sm:text-left opacity-80">
               Have you ever finally just write dummy info
             </div>
           </div>
-          <button style={{
-            background: "#f59e0b", color: "#fff", border: "none",
-            padding: "10px 24px", borderRadius: 6, fontSize: 13, fontWeight: 600,
-            cursor: "pointer", whiteSpace: "nowrap", transition: "background .15s",
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = "#d97706"}
-            onMouseLeave={e => e.currentTarget.style.background = "#f59e0b"}
-          >
-            Shop now
+          <button className="bg-orange-500 text-white px-8 py-3.5 rounded-xl text-sm font-black hover:bg-orange-600 active:scale-95 shadow-lg shadow-orange-900/20 transition-all whitespace-nowrap tracking-widest">
+            SHOP NOW
           </button>
         </div>
 
       </main>
 
       {/* ── SUBSCRIBE BANNER ─────────────────────────────────── */}
-      <div style={{
-        background: "#fff", borderTop: "1px solid #e8e8e8",
-        borderBottom: "1px solid #e8e8e8", padding: "28px 20px", textAlign: "center",
-      }}>
-        <div style={{ maxWidth: 500, margin: "0 auto" }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 6px" }}>Subscribe on our newsletter</h3>
-          <p style={{ fontSize: 13, color: "#888", margin: "0 0 16px" }}>
+      <div className="bg-white border-y border-gray-200 py-12 px-5 text-center">
+        <div className="max-w-[500px] mx-auto">
+          <h3 className="text-lg font-black text-gray-900 mb-2 uppercase tracking-tighter">Subscribe on our newsletter</h3>
+          <p className="text-[13px] text-gray-400 font-medium mb-6">
             Get daily news on upcoming offers from many suppliers all over the world
           </p>
-          <div style={{
-            display: "flex", gap: 0, border: "1.5px solid #2563eb",
-            borderRadius: 7, overflow: "hidden", maxWidth: 380, margin: "0 auto",
-          }}>
+          <div className="flex border-2 border-blue-600 rounded-xl overflow-hidden max-w-[400px] mx-auto shadow-lg shadow-blue-100">
             <input type="email" placeholder="Email" value={email}
               onChange={e => setEmail(e.target.value)}
-              style={{
-                flex: 1, padding: "9px 14px", border: "none", outline: "none",
-                fontSize: 13, fontFamily: "inherit",
-              }}
+              className="flex-1 px-4 py-2.5 text-[13px] outline-none font-medium"
             />
-            <button style={{
-              background: "#2563eb", color: "#fff", border: "none",
-              padding: "0 20px", fontSize: 13, fontWeight: 600, cursor: "pointer",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-              onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-            >Subscribe</button>
+            <button className="bg-blue-600 text-white px-6 py-2.5 text-[13px] font-black uppercase hover:bg-blue-700 transition-colors">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer style={{ background: "#1a1a2e", color: "#9ca3af", padding: "36px 20px 20px" }}>
-        <div style={{
-          maxWidth: 1200, margin: "0 auto",
-          display: "grid", gridTemplateColumns: "1.4fr repeat(4,1fr) 1.2fr", gap: 32,
-        }}>
+      <footer className="bg-[#1a1a2e] text-gray-500 py-16 px-5">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand */}
-          <div>
-            <div style={{
-              background: "#2563eb", color: "#fff", borderRadius: 6,
-              padding: "5px 12px", fontSize: 15, fontWeight: 700,
-              display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 12,
-            }}>🛒 Brand</div>
-            <div style={{ fontSize: 12, lineHeight: 1.7, marginBottom: 14 }}>
-              Best information about the company goes here but now lorem ipsum is
+          <div className="lg:col-span-2">
+            <div className="bg-blue-600 text-white rounded-lg px-4 py-2 text-base font-black inline-flex items-center gap-2 mb-6 shadow-lg shadow-blue-900/30 uppercase tracking-tighter">
+              🛒 Brand
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
+            <p className="text-[12px] leading-relaxed mb-8 opacity-50 max-w-[260px] font-medium">
+              Best information about the company goes here but now lorem ipsum is
+            </p>
+            <div className="flex gap-2.5">
               {["f","t","in","be","yt"].map((s, i) => (
-                <div key={i} style={{
-                  width: 28, height: 28, borderRadius: "50%", background: "#374151",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, cursor: "pointer", color: "#9ca3af",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.background = "#2563eb"}
-                  onMouseLeave={e => e.currentTarget.style.background = "#374151"}
-                >{s}</div>
+                <div key={i} className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-[11px] font-black cursor-pointer hover:bg-blue-600 hover:text-white transition-all uppercase tracking-tighter border border-gray-700 hover:border-blue-500">
+                  {s}
+                </div>
               ))}
             </div>
           </div>
 
           {[
             { title: "About",       links: ["About Us","Find store","Categories","Blogs"] },
-            { title: "Partnership", links: ["About Us","Find store","Categories","Blogs"] },
             { title: "Information", links: ["Help Center","Money Refund","Shipping","Contact us"] },
             { title: "For users",   links: ["Login","Register","Settings","My Orders"] },
           ].map(col => (
             <div key={col.title}>
-              <h4 style={{ color: "#f9fafb", fontSize: 13, fontWeight: 600, margin: "0 0 12px" }}>{col.title}</h4>
-              {col.links.map(link => (
-                <div key={link} style={{ fontSize: 12, marginBottom: 8, cursor: "pointer" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "#60a5fa"}
-                  onMouseLeave={e => e.currentTarget.style.color = "#9ca3af"}
-                >{link}</div>
-              ))}
+              <h4 className="text-white text-[12px] font-black mb-6 uppercase tracking-widest">{col.title}</h4>
+              <ul className="space-y-3">
+                {col.links.map(link => (
+                  <li key={link} className="text-[12px] hover:text-blue-400 cursor-pointer transition-colors font-bold opacity-40 hover:opacity-100">{link}</li>
+                ))}
+              </ul>
             </div>
           ))}
 
-          {/* Get app */}
           <div>
-            <h4 style={{ color: "#f9fafb", fontSize: 13, fontWeight: 600, margin: "0 0 12px" }}>Get app</h4>
-            {[
-              { label: "App Store",   sub: "Download on the", icon: "🍎" },
-              { label: "Google Play", sub: "Get it on",        icon: "▶" },
-            ].map(app => (
-              <div key={app.label} style={{
-                display: "flex", alignItems: "center", gap: 10,
-                border: "1px solid #374151", borderRadius: 6,
-                padding: "8px 12px", marginBottom: 8, cursor: "pointer",
-              }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = "#6b7280"}
-                onMouseLeave={e => e.currentTarget.style.borderColor = "#374151"}
-              >
-                <span style={{ fontSize: 20 }}>{app.icon}</span>
-                <div>
-                  <div style={{ fontSize: 10, color: "#9ca3af" }}>{app.sub}</div>
-                  <div style={{ fontSize: 13, color: "#f9fafb", fontWeight: 600 }}>{app.label}</div>
+            <h4 className="text-white text-[12px] font-black mb-6 uppercase tracking-widest">Get app</h4>
+            <div className="space-y-3">
+              {[
+                { label: "App Store",   sub: "Download on the", icon: "🍎" },
+                { label: "Google Play", sub: "Get it on",        icon: "▶" },
+              ].map(app => (
+                <div key={app.label} className="flex items-center gap-3 border border-gray-700 rounded-xl px-3 py-2.5 cursor-pointer hover:border-gray-500 hover:bg-gray-800 transition-all group">
+                  <span className="text-2xl transition-transform group-hover:scale-110">{app.icon}</span>
+                  <div>
+                    <div className="text-[9px] opacity-40 leading-tight uppercase font-black">{app.sub}</div>
+                    <div className="text-[12px] text-gray-200 font-black leading-tight">{app.label}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div style={{
-          maxWidth: 1200, margin: "24px auto 0",
-          borderTop: "1px solid #374151", paddingTop: 16,
-          display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12,
-        }}>
-          <span>© 2023 Ecommerce.</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#888" }}>
-            <span>🇺🇸</span><span>English</span><ChevronDown />
+        <div className="max-w-[1200px] mx-auto mt-16 border-t border-gray-800 pt-10 flex flex-col sm:flex-row justify-between items-center text-[11px] gap-6 font-bold uppercase tracking-widest">
+          <span className="opacity-30">© 2023 Ecommerce. All rights reserved.</span>
+          <div className="flex items-center gap-6 opacity-60">
+            <span className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors">🇺🇸 English <ChevronDown /></span>
           </div>
         </div>
       </footer>

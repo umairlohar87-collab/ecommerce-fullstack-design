@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
-const Icon = ({ d, size = 18 }) => (
+const Icon = ({ d, size = 18, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d={d} />
   </svg>
 );
@@ -31,45 +31,37 @@ const AppleIcon = () => (
 
 // ─── Input Field ──────────────────────────────────────────────────────────────
 function InputField({ label, type = "text", placeholder, value, onChange, icon, rightEl, error }) {
+  const [focused, setFocused] = useState(false);
   return (
-    <div style={{ marginBottom: 16 }}>
-      <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>
+    <div className="mb-4">
+      <label className="block text-[13px] font-medium text-gray-700 mb-1.5">
         {label}
       </label>
-      <div style={{ position: "relative" }}>
-        {/* Left icon */}
+      <div className="relative">
         {icon && (
-          <span style={{
-            position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
-            color: "#9ca3af", pointerEvents: "none",
-          }}>{icon}</span>
+          <span className={`absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-150 ${focused ? "text-blue-600" : "text-gray-400"}`}>
+            {icon}
+          </span>
         )}
         <input
           type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          style={{
-            width: "100%", padding: icon ? "10px 38px" : "10px 14px",
-            paddingLeft: icon ? 38 : 14,
-            paddingRight: rightEl ? 40 : 14,
-            border: error ? "1.5px solid #ef4444" : "1.5px solid #e5e7eb",
-            borderRadius: 7, fontSize: 13, outline: "none",
-            fontFamily: "inherit", background: "#fff", color: "#111",
-            boxSizing: "border-box", transition: "border-color .15s",
-          }}
-          onFocus={e => !error && (e.target.style.borderColor = "#2563eb")}
-          onBlur={e  => !error && (e.target.style.borderColor = "#e5e7eb")}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          className={`w-full py-2.5 text-[13px] outline-none transition-all border rounded-lg bg-white text-gray-800 font-sans
+            ${icon ? "pl-[38px]" : "pl-3.5"}
+            ${rightEl ? "pr-10" : "pr-3.5"}
+            ${error ? "border-red-500" : focused ? "border-blue-600 shadow-[0_0_0_1px_#2563eb]" : "border-gray-200"}`}
         />
-        {/* Right element (eye toggle) */}
         {rightEl && (
-          <span style={{
-            position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
-            cursor: "pointer", color: "#9ca3af",
-          }}>{rightEl}</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-gray-600 transition-colors">
+            {rightEl}
+          </span>
         )}
       </div>
-      {error && <p style={{ fontSize: 11, color: "#ef4444", margin: "4px 0 0" }}>{error}</p>}
+      {error && <p className="text-[11px] text-red-500 mt-1 font-medium">{error}</p>}
     </div>
   );
 }
@@ -87,22 +79,19 @@ function PasswordStrength({ password }) {
   };
   const strength = getStrength();
   const labels   = ["", "Weak", "Fair", "Good", "Strong"];
-  const colors   = ["#e5e7eb", "#ef4444", "#f59e0b", "#3b82f6", "#22c55e"];
+  const colors   = ["bg-gray-200", "bg-red-500", "bg-orange-500", "bg-blue-500", "bg-green-500"];
+  const textColors = ["text-gray-400", "text-red-500", "text-orange-500", "text-blue-500", "text-green-500"];
 
   if (!password) return null;
 
   return (
-    <div style={{ marginTop: -8, marginBottom: 14 }}>
-      <div style={{ display: "flex", gap: 4, marginBottom: 4 }}>
+    <div className="mt-[-8px] mb-3.5">
+      <div className="flex gap-1 mb-1">
         {[1,2,3,4].map(i => (
-          <div key={i} style={{
-            flex: 1, height: 3, borderRadius: 2,
-            background: i <= strength ? colors[strength] : "#e5e7eb",
-            transition: "background .2s",
-          }} />
+          <div key={i} className={`flex-1 h-1 rounded-full transition-all duration-300 ${i <= strength ? colors[strength] : "bg-gray-100"}`} />
         ))}
       </div>
-      <span style={{ fontSize: 11, color: colors[strength] }}>{labels[strength]}</span>
+      <span className={`text-[11px] font-bold uppercase tracking-wider ${textColors[strength]}`}>{labels[strength]}</span>
     </div>
   );
 }
@@ -145,176 +134,122 @@ export default function Register() {
 
   if (submitted) {
     return (
-      <div style={{
-        minHeight: "100vh", background: "#f5f5f5",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}>
-        <div style={{
-          background: "#fff", borderRadius: 12, padding: "48px 40px",
-          textAlign: "center", border: "1px solid #e8e8e8",
-          boxShadow: "0 4px 24px rgba(0,0,0,.08)", maxWidth: 360,
-        }}>
-          <div style={{
-            width: 60, height: 60, background: "#dcfce7", borderRadius: "50%",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            margin: "0 auto 16px",
-          }}>
-            <svg width={28} height={28} viewBox="0 0 24 24" fill="none"
-              stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center font-sans p-5">
+        <div className="bg-white rounded-2xl p-10 py-12 text-center border border-gray-200 shadow-2xl max-w-[400px] w-full animate-in fade-in zoom-in duration-300">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+            <svg width={28} height={28} viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 6L9 17l-5-5" />
             </svg>
           </div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px" }}>Account created!</h2>
-          <p style={{ fontSize: 13, color: "#888", margin: 0 }}>Redirecting you to login…</p>
+          <h2 className="text-[22px] font-bold text-gray-900 mb-2 tracking-tight">Account created!</h2>
+          <p className="text-[14px] text-gray-500 font-medium">Redirecting you to login…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "#f5f5f5", minHeight: "100vh",
-    }}>
+    <div className="bg-gray-100 min-h-screen font-sans">
 
       {/* ── MINIMAL HEADER ──────────────────────────────────── */}
-      <header style={{
-        background: "#fff", borderBottom: "1px solid #e8e8e8",
-        padding: "12px 20px", display: "flex", alignItems: "center",
-        justifyContent: "space-between",
-      }}>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <div style={{
-            background: "#2563eb", color: "#fff", borderRadius: 7,
-            padding: "6px 14px", fontSize: 15, fontWeight: 700,
-            display: "inline-flex", alignItems: "center", gap: 6,
-          }}>🛒 Brand</div>
+      <header className="bg-white border-b border-gray-200 px-5 py-3 flex items-center justify-between">
+        <Link to="/" className="no-underline">
+          <div className="bg-blue-600 text-white rounded-lg px-3.5 py-1.5 text-base font-bold flex items-center gap-1.5 shadow-sm">
+            🛒 Brand
+          </div>
         </Link>
-        <span style={{ fontSize: 13, color: "#888" }}>
+        <span className="text-[13px] text-gray-400 font-medium">
           Already have an account?{" "}
-          <Link to="/login" style={{ color: "#2563eb", fontWeight: 600, textDecoration: "none" }}>
+          <Link to="/login" className="text-blue-600 font-bold hover:underline">
             Sign in
           </Link>
         </span>
       </header>
 
       {/* ── MAIN ────────────────────────────────────────────── */}
-      <div style={{
-        maxWidth: 1000, margin: "0 auto", padding: "40px 20px",
-        display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "start",
-      }}>
+      <div className="max-w-[1000px] mx-auto px-5 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
         {/* ── LEFT: Illustration + benefits ───────────────── */}
-        <div style={{ position: "sticky", top: 100 }}>
+        <div className="hidden md:block sticky top-24">
           {/* Hero card */}
-          <div style={{
-            background: "linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%)",
-            borderRadius: 16, padding: "40px 36px 0", overflow: "hidden",
-            marginBottom: 24, position: "relative", minHeight: 300,
-          }}>
-            <h2 style={{ color: "#fff", fontSize: 26, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.3 }}>
+          <div className="relative bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 rounded-2xl p-10 pb-0 overflow-hidden mb-6 shadow-2xl min-h-[300px]">
+            <h2 className="text-white text-[28px] font-bold mb-3 leading-tight">
               Join millions of<br />buyers & sellers
             </h2>
-            <p style={{ color: "#bfdbfe", fontSize: 13, lineHeight: 1.7, margin: "0 0 28px" }}>
+            <p className="text-blue-100 text-[13px] leading-relaxed mb-7 max-w-[320px]">
               Create your free account and start shopping from thousands of verified suppliers worldwide.
             </p>
             {/* Floating product cards */}
-            <div style={{ display: "flex", gap: 10, paddingBottom: 30 }}>
+            <div className="flex gap-2.5 pb-8 relative z-10">
               {[
                 "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=80",
                 "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&q=80",
                 "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=80&q=80",
               ].map((src, i) => (
-                <div key={i} style={{
-                  background: "rgba(255,255,255,.15)", borderRadius: 10,
-                  padding: 8, backdropFilter: "blur(6px)",
-                }}>
-                  <img src={src} alt="" style={{ width: 56, height: 56, borderRadius: 6, objectFit: "cover", display: "block" }} />
+                <div key={i} className="bg-white/10 rounded-xl p-2 backdrop-blur-md border border-white/10 hover:scale-110 transition-transform cursor-pointer">
+                  <img src={src} alt="" className="w-14 h-14 rounded-lg object-cover block" />
                 </div>
               ))}
             </div>
             {/* Decorative circle */}
-            <div style={{
-              position: "absolute", bottom: -60, right: -60,
-              width: 200, height: 200, borderRadius: "50%",
-              background: "rgba(255,255,255,.07)",
-            }} />
+            <div className="absolute -bottom-16 -right-16 w-52 h-52 rounded-full bg-white/5" />
           </div>
 
           {/* Benefits list */}
-          <div style={{
-            background: "#fff", borderRadius: 12, border: "1px solid #e8e8e8",
-            padding: "20px 24px",
-          }}>
-            <h4 style={{ fontSize: 14, fontWeight: 700, margin: "0 0 14px", color: "#1a1a2e" }}>
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+            <h4 className="text-[14px] font-bold mb-4 text-gray-900 uppercase tracking-wider">
               Why join Brand?
             </h4>
-            {[
-              { icon: "🛒", text: "Access 10,000+ verified suppliers" },
-              { icon: "🚚", text: "Free & fast worldwide delivery" },
-              { icon: "🔒", text: "Secure payments & buyer protection" },
-              { icon: "💬", text: "24/7 customer support" },
-              { icon: "🎁", text: "Exclusive deals for members" },
-            ].map((b, i) => (
-              <div key={i} style={{
-                display: "flex", alignItems: "center", gap: 12,
-                padding: "8px 0",
-                borderBottom: i < 4 ? "1px solid #f5f5f5" : "none",
-              }}>
-                <span style={{ fontSize: 18 }}>{b.icon}</span>
-                <span style={{ fontSize: 13, color: "#444" }}>{b.text}</span>
-              </div>
-            ))}
+            <div className="space-y-1">
+              {[
+                { icon: "🛒", text: "Access 10,000+ verified suppliers" },
+                { icon: "🚚", text: "Free & fast worldwide delivery" },
+                { icon: "🔒", text: "Secure payments & buyer protection" },
+                { icon: "💬", text: "24/7 customer support" },
+                { icon: "🎁", text: "Exclusive deals for members" },
+              ].map((b, i) => (
+                <div key={i} className="flex items-center gap-3.5 py-2.5 border-b border-gray-50 last:border-0 group cursor-default">
+                  <span className="text-xl group-hover:scale-125 transition-transform">{b.icon}</span>
+                  <span className="text-[13px] text-gray-600 font-medium group-hover:text-gray-900 transition-colors">{b.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* ── RIGHT: Form ──────────────────────────────────── */}
-        <div style={{
-          background: "#fff", borderRadius: 12,
-          border: "1px solid #e8e8e8", padding: "32px 32px 28px",
-          boxShadow: "0 2px 16px rgba(0,0,0,.05)",
-        }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px", color: "#1a1a2e" }}>
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 sm:p-10 shadow-xl">
+          <h2 className="text-[24px] font-bold mb-1 text-gray-900 tracking-tight">
             Create account
           </h2>
-          <p style={{ fontSize: 13, color: "#888", margin: "0 0 24px" }}>
+          <p className="text-[13px] text-gray-500 mb-7 font-medium">
             Fill in the details below to get started
           </p>
 
           {/* Social sign-up buttons */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
+          <div className="grid grid-cols-2 gap-3 mb-6">
             {[
-              { icon: <GoogleIcon />, label: "Continue with Google" },
-              { icon: <AppleIcon />,  label: "Continue with Apple"  },
+              { icon: <GoogleIcon />, label: "Google" },
+              { icon: <AppleIcon />,  label: "Apple"  },
             ].map(btn => (
-              <button key={btn.label} style={{
-                display: "flex", alignItems: "center", justifyContent: "center",
-                gap: 8, padding: "10px 0", border: "1.5px solid #e5e7eb",
-                borderRadius: 7, background: "#fff", cursor: "pointer",
-                fontSize: 12, fontWeight: 500, color: "#333",
-                fontFamily: "inherit", transition: "border-color .15s, background .15s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "#2563eb"; e.currentTarget.style.background = "#f8faff"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.background = "#fff"; }}
-              >
-                {btn.icon} {btn.label}
+              <button key={btn.label} className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-lg bg-white text-[12px] font-semibold text-gray-700 hover:border-blue-600 hover:bg-blue-50 transition-all shadow-sm">
+                {btn.icon} <span>{btn.label}</span>
               </button>
             ))}
           </div>
 
           {/* Divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
-            <span style={{ fontSize: 12, color: "#aaa", whiteSpace: "nowrap" }}>or register with email</span>
-            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-[11px] text-gray-400 uppercase font-bold tracking-widest">or register</span>
+            <div className="flex-1 h-px bg-gray-100" />
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} noValidate>
 
             {/* Name row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="grid grid-cols-2 gap-3.5">
               <InputField
                 label="First name"
                 placeholder="John"
@@ -355,7 +290,7 @@ export default function Register() {
             <InputField
               label="Password"
               type={showPass ? "text" : "password"}
-              placeholder="Create a strong password"
+              placeholder="••••••••"
               value={form.password}
               onChange={set("password")}
               icon={<LockIcon />}
@@ -371,7 +306,7 @@ export default function Register() {
             <InputField
               label="Confirm password"
               type={showConfirm ? "text" : "password"}
-              placeholder="Repeat your password"
+              placeholder="••••••••"
               value={form.confirm}
               onChange={set("confirm")}
               icon={<LockIcon />}
@@ -384,52 +319,35 @@ export default function Register() {
             />
 
             {/* Terms */}
-            <div style={{ marginBottom: 20 }}>
-              <label style={{
-                display: "flex", alignItems: "flex-start", gap: 10,
-                cursor: "pointer", fontSize: 13, color: "#555", lineHeight: 1.5,
-              }}>
+            <div className="mb-6">
+              <label className="flex items-start gap-3 cursor-pointer group">
                 <div
                   onClick={() => setAgreed(v => !v)}
-                  style={{
-                    width: 17, height: 17, borderRadius: 4, flexShrink: 0, marginTop: 1,
-                    border: agreed ? "none" : "1.5px solid #ccc",
-                    background: agreed ? "#2563eb" : "#fff",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    cursor: "pointer", transition: "background .15s",
-                  }}
+                  className={`w-4.5 h-4.5 rounded border mt-0.5 flex-shrink-0 flex items-center justify-center transition-all ${agreed ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300 group-hover:border-blue-400"}`}
                 >
                   {agreed && <CheckIcon />}
                 </div>
-                <span>
+                <span className="text-[13px] text-gray-500 leading-relaxed font-medium">
                   I agree to the{" "}
-                  <a href="#" style={{ color: "#2563eb", textDecoration: "none" }}>Terms of Service</a>
+                  <a href="#" className="text-blue-600 font-bold hover:underline">Terms of Service</a>
                   {" "}and{" "}
-                  <a href="#" style={{ color: "#2563eb", textDecoration: "none" }}>Privacy Policy</a>
+                  <a href="#" className="text-blue-600 font-bold hover:underline">Privacy Policy</a>
                 </span>
               </label>
               {errors.agreed && (
-                <p style={{ fontSize: 11, color: "#ef4444", margin: "4px 0 0 27px" }}>{errors.agreed}</p>
+                <p className="text-[11px] text-red-500 mt-1.5 ml-7 font-bold italic">{errors.agreed}</p>
               )}
             </div>
 
             {/* Submit */}
-            <button type="submit" style={{
-              width: "100%", padding: "12px 0", background: "#2563eb", color: "#fff",
-              border: "none", borderRadius: 7, fontSize: 14, fontWeight: 700,
-              cursor: "pointer", fontFamily: "inherit", letterSpacing: ".3px",
-              transition: "background .15s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-              onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-            >
+            <button type="submit" className="w-full py-3 bg-blue-600 text-white rounded-lg text-[14px] font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 active:scale-[0.98] tracking-wide">
               Create account
             </button>
 
             {/* Sign in link */}
-            <p style={{ textAlign: "center", fontSize: 13, color: "#888", margin: "16px 0 0" }}>
+            <p className="text-center text-[13px] text-gray-500 mt-6 font-medium">
               Already have an account?{" "}
-              <Link to="/login" style={{ color: "#2563eb", fontWeight: 600, textDecoration: "none" }}>
+              <Link to="/login" className="text-blue-600 font-bold hover:underline">
                 Sign in
               </Link>
             </p>
@@ -438,16 +356,15 @@ export default function Register() {
       </div>
 
       {/* ── MINIMAL FOOTER ──────────────────────────────────── */}
-      <div style={{
-        borderTop: "1px solid #e8e8e8", background: "#fff",
-        padding: "16px 20px", textAlign: "center",
-        fontSize: 12, color: "#aaa", marginTop: 20,
-      }}>
-        © 2024 Brand. All rights reserved. &nbsp;·&nbsp;
-        <a href="#" style={{ color: "#888", textDecoration: "none" }}>Privacy Policy</a>
-        &nbsp;·&nbsp;
-        <a href="#" style={{ color: "#888", textDecoration: "none" }}>Terms of Service</a>
-      </div>
+      <footer className="border-t border-gray-200 bg-white py-6 px-5 text-center text-[12px] text-gray-400 font-medium mt-10">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-center items-center gap-4">
+          <span>© 2024 Brand. All rights reserved.</span>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-gray-600 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-600 transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

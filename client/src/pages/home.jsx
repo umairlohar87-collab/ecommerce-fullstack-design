@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import heroImg from "../assets/hero.png";
 
 // ─── Mock Data ────────────────────────────────────────────────────────────────
 const categories = [
@@ -9,73 +10,54 @@ const categories = [
 ];
 
 const dealProducts = [
-  { id: 1, name: "Smart watches", discount: 25, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=120&q=80" },
-  { id: 2, name: "Laptops",       discount: 15, img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=120&q=80" },
-  { id: 3, name: "GoPro cameras", discount: 40, img: "https://images.unsplash.com/photo-1596246100254-c42e64a7af3d?w=120&q=80" },
-  { id: 4, name: "Headphones",    discount: 25, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" },
-  { id: 5, name: "Canon cameras", discount: 25, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=120&q=80" },
+  { id: 1, name: "Smart watches", discount: 25, img: "images/tech/image 34.png" },
+  { id: 2, name: "Laptops",       discount: 15, img: "images/tech/image 23.png" },
+  { id: 3, name: "GoPro cameras", discount: 40, img: "images/tech/image 29.png" },
+  { id: 4, name: "Headphones",    discount: 25, img: "images/tech/8.png" },
+  { id: 5, name: "Canon cameras", discount: 25, img: "images/tech/image 32.png" },
 ];
 
 const homeItems = [
-  { id: 1, name: "Soft chairs",    from: "USD 19",  img: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=80&q=80" },
-  { id: 2, name: "Sofa & chair",   from: "USD 19",  img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=80&q=80" },
-  { id: 3, name: "Kitchen dishes", from: "USD 19",  img: "https://images.unsplash.com/photo-1603199506016-b9a594b593c0?w=80&q=80" },
-  { id: 4, name: "Smart watches",  from: "USD 19",  img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=80" },
-  { id: 5, name: "Kitchen mixer",  from: "USD 100", img: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=80&q=80" },
-  { id: 6, name: "Blenders",       from: "USD 39",  img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=80&q=80" },
-  { id: 7, name: "Home appliance", from: "USD 19",  img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=80&q=80" },
-  { id: 8, name: "Coffee maker",   from: "USD 10",  img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=80&q=80" },
+  { id: 1, name: "Soft chairs",    from: "USD 19",  img: "images/interior/6.png" },
+  { id: 2, name: "Sofa & chair",   from: "USD 19",  img: "images/interior/image 89.png" },
+  { id: 3, name: "Kitchen dishes", from: "USD 19",  img: "images/interior/image 93.png" },
+  { id: 4, name: "Smart watches",  from: "USD 19",  img: "images/tech/image 34.png" },
+  { id: 5, name: "Kitchen mixer",  from: "USD 100", img: "images/interior/1.png" },
+  { id: 6, name: "Blenders",       from: "USD 39",  img: "images/interior/3.png" },
+  { id: 7, name: "Home appliance", from: "USD 19",  img: "images/interior/7.png" },
+  { id: 8, name: "Coffee maker",   from: "USD 10",  img: "images/interior/8.png" },
 ];
 
 const electronicsItems = [
-  { id: 1, name: "Smart watches",  from: "USD 19",  img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=80" },
-  { id: 2, name: "Cameras",        from: "USD 89",  img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=80&q=80" },
-  { id: 3, name: "Headphones",     from: "USD 10",  img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&q=80" },
-  { id: 4, name: "Smart watches",  from: "USD 90",  img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=80&q=80" },
-  { id: 5, name: "Laptops & PC",   from: "USD 340", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=80&q=80" },
-  { id: 6, name: "Smartphones",    from: "USD 18",  img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=80&q=80" },
-  { id: 7, name: "Electric kettle",from: "USD 240", img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=80&q=80" },
+  { id: 1, name: "Smart watches",  from: "USD 19",  img: "images/tech/image 34.png" },
+  { id: 2, name: "Cameras",        from: "USD 89",  img: "images/tech/image 32.png" },
+  { id: 3, name: "Headphones",     from: "USD 10",  img: "images/tech/8.png" },
+  { id: 4, name: "Smart watches",  from: "USD 90",  img: "images/tech/image 33.png" },
+  { id: 5, name: "Laptops & PC",   from: "USD 340", img: "images/tech/image 23.png" },
+  { id: 6, name: "Smartphones",    from: "USD 18",  img: "images/tech/image 85.png" },
+  { id: 7, name: "Electric kettle",from: "USD 240", img: "images/tech/image 86.png" },
 ];
 
-// ── Recommended items (matches screenshot: clothes, bags, accessories) ────────
 const recommendedItems = [
-  { id: 1,  price: "$10.30", name: "T-shirts with multiple colors, for men",    img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=200&q=80" },
-  { id: 2,  price: "$10.30", name: "Jeans shorts, blue color",                  img: "https://images.unsplash.com/photo-1591195853828-11db59a44f43?w=200&q=80" },
-  { id: 3,  price: "$12.50", name: "Brown winter coat medium size",              img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=200&q=80" },
-  { id: 4,  price: "$34.00", name: "Jeans bag for travel for men",               img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80" },
-  { id: 5,  price: "$99.00", name: "Leather wallet",                             img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=200&q=80" },
-  { id: 6,  price: "$9.99",  name: "Canon camera black, 100x zoom",             img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&q=80" },
-  { id: 7,  price: "$8.99",  name: "Headset for gaming with mic",               img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" },
-  { id: 8,  price: "$10.30", name: "Smartwatch silver color modern",            img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80" },
-  { id: 9,  price: "$10.30", name: "Blue wallet for men leather metarfial",     img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=200&q=80" },
-  { id: 10, price: "$80.95", name: "Jeans bag for travel for men",              img: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=200&q=80" },
+  { id: 1,  price: "$10.30", name: "T-shirts with multiple colors, for men",    img: "layout/alibaba/Image/cloth/Bitmap.png" },
+  { id: 2,  price: "$10.30", name: "Jeans shorts, blue color",                  img: "layout/alibaba/Image/cloth/image 24.png" },
+  { id: 3,  price: "$12.50", name: "Brown winter coat medium size",              img: "layout/alibaba/Image/cloth/image 26.png" },
+  { id: 4,  price: "$34.00", name: "Jeans bag for travel for men",               img: "layout/alibaba/Image/cloth/image 30.png" },
+  { id: 5,  price: "$99.00", name: "Leather wallet",                             img: "layout/alibaba/Image/cloth/2 1.png" },
+  { id: 6,  price: "$9.99",  name: "Canon camera black, 100x zoom",             img: "images/tech/image 32.png" },
+  { id: 7,  price: "$8.99",  name: "Headset for gaming with mic",               img: "images/tech/8.png" },
+  { id: 8,  price: "$10.30", name: "Smartwatch silver color modern",            img: "images/tech/image 34.png" },
+  { id: 9,  price: "$10.30", name: "Blue wallet for men leather metarfial",     img: "layout/alibaba/Image/cloth/Bitmap (2).png" },
+  { id: 10, price: "$80.95", name: "Jeans bag for travel for men",              img: "layout/alibaba/Image/cloth/image 30.png" },
 ];
 
-// ── Extra services ─────────────────────────────────────────────────────────────
 const extraServices = [
-  {
-    id: 1, label: "Source from Industry Hubs",
-    img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=300&q=80",
-    icon: "🔍",
-  },
-  {
-    id: 2, label: "Customize Your Products",
-    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80",
-    icon: "🖊️",
-  },
-  {
-    id: 3, label: "Fast, reliable shipping by ocean or air",
-    img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&q=80",
-    icon: "✈️",
-  },
-  {
-    id: 4, label: "Product monitoring and inspection",
-    img: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=300&q=80",
-    icon: "🌐",
-  },
+  { id: 1, label: "Source from Industry Hubs", img: "images/backgrounds/image 106.png", icon: "🔍" },
+  { id: 2, label: "Customize Your Products", img: "images/backgrounds/image 107.png", icon: "🖊️" },
+  { id: 3, label: "Fast, reliable shipping by ocean or air", img: "images/backgrounds/image 98.png", icon: "✈️" },
+  { id: 4, label: "Product monitoring and inspection", img: "images/backgrounds/Mask group.png", icon: "🌐" },
 ];
 
-// ── Suppliers by region ────────────────────────────────────────────────────────
 const suppliers = [
   { country: "Arabic Emirates", flag: "🇦🇪", url: "shopname.ae" },
   { country: "Australia",       flag: "🇦🇺", url: "shopname.ae" },
@@ -112,40 +94,24 @@ function useCountdown(targetDate) {
 // ─── Sub-components ───────────────────────────────────────────────────────────
 function TimerBlock({ value, label }) {
   return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{
-        background: "#fff", border: "1px solid #e0e0e0", borderRadius: 4,
-        fontSize: 18, fontWeight: 700, color: "#222",
-        padding: "2px 8px", display: "inline-block", minWidth: 38,
-      }}>
+    <div className="text-center">
+      <div className="bg-white border border-gray-200 rounded px-2 py-0.5 inline-block min-w-[38px] text-lg font-bold text-gray-800">
         {String(value).padStart(2, "0")}
       </div>
-      <div style={{ fontSize: 10, color: "#888", marginTop: 2 }}>{label}</div>
+      <div className="text-[10px] text-gray-400 mt-0.5 uppercase">{label}</div>
     </div>
   );
 }
 
 function ProductMiniCard({ name, from, img }) {
-  const [hovered, setHovered] = useState(false);
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "flex", alignItems: "center", gap: 10,
-        padding: "8px 10px", borderRadius: 8, cursor: "pointer",
-        background: hovered ? "#f5f8ff" : "transparent", transition: "background .15s",
-      }}
-    >
-      <img src={img} alt={name} style={{
-        width: 54, height: 54, objectFit: "cover",
-        borderRadius: 6, border: "1px solid #eee", flexShrink: 0,
-      }} />
+    <div className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">
+      <img src={img} alt={name} className="w-[54px] h-[54px] object-cover rounded-md border border-gray-100 flex-shrink-0" />
       <div>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#222" }}>{name}</div>
-        <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>
+        <div className="text-[13px] font-medium text-gray-800 line-clamp-1">{name}</div>
+        <div className="text-[11px] text-gray-400 mt-0.5 leading-tight">
           From<br />
-          <span style={{ color: "#444", fontWeight: 600 }}>{from}</span>
+          <span className="text-gray-600 font-semibold">{from}</span>
         </div>
       </div>
     </div>
@@ -154,33 +120,15 @@ function ProductMiniCard({ name, from, img }) {
 
 function SectionPanel({ title, bannerImg, items }) {
   return (
-    <div style={{
-      display: "grid", gridTemplateColumns: "220px 1fr",
-      border: "1px solid #e8e8e8", borderRadius: 10,
-      overflow: "hidden", marginBottom: 24, background: "#fff",
-    }}>
-      <div style={{
-        background: "linear-gradient(145deg,#dce9ff 0%,#f0f5ff 100%)",
-        display: "flex", flexDirection: "column", justifyContent: "flex-end",
-        padding: 20, position: "relative", minHeight: 200,
-      }}>
-        <img src={bannerImg} alt={title} style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          objectFit: "cover", opacity: 0.2,
-        }} />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#1a1a2e", marginBottom: 10 }}>{title}</div>
-          <button style={{
-            padding: "7px 18px", borderRadius: 6, border: "none", cursor: "pointer",
-            background: "#fff", fontSize: 12, fontWeight: 600, color: "#222",
-            boxShadow: "0 1px 4px rgba(0,0,0,.12)",
-          }}>Source now</button>
+    <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] border border-gray-200 rounded-lg overflow-hidden mb-6 bg-white">
+      <div className="relative p-5 flex flex-col justify-end min-h-[200px] bg-gradient-to-br from-[#dce9ff] to-[#f0f5ff]">
+        <img src={bannerImg} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-20" />
+        <div className="relative z-10">
+          <div className="text-base font-bold text-[#1a1a2e] mb-3">{title}</div>
+          <button className="px-4 py-1.5 bg-white rounded-md text-xs font-semibold text-gray-800 shadow-sm border border-transparent hover:border-gray-200 transition-all">Source now</button>
         </div>
       </div>
-      <div style={{
-        display: "grid", gridTemplateColumns: "repeat(4,1fr)",
-        padding: "8px 4px", gap: 4, alignContent: "start",
-      }}>
+      <div className="grid grid-cols-2 sm:grid-cols-4 p-2 gap-1 content-start">
         {items.map(item => <ProductMiniCard key={item.id} {...item} />)}
       </div>
     </div>
@@ -193,100 +141,76 @@ export default function Home() {
   const [email, setEmail] = useState("");
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "#f5f5f5", minHeight: "100vh", color: "#222",
-    }}>
+    <div className="bg-gray-100 min-h-screen font-sans text-gray-800">
 
       {/* ── NAVBAR ─────────────────────────────────────────── */}
       <Navbar />
 
       {/* ── PAGE CONTENT ───────────────────────────────────── */}
-      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "16px 20px" }}>
+      <main className="max-w-[1200px] mx-auto px-5 py-4">
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <div style={{ display: "grid", gridTemplateColumns: "180px 1fr 220px", gap: 16, marginBottom: 24 }}>
+        <div className="grid grid-cols-1 md:grid-cols-[180px_1fr_220px] gap-4 mb-6">
 
           {/* Category sidebar */}
-          <div style={{ background: "#fff", borderRadius: 8, padding: "8px 0", border: "1px solid #e8e8e8", alignSelf: "start" }}>
+          <div className="hidden md:block bg-white rounded-lg border border-gray-200 py-2 self-start">
             {categories.map((cat) => (
-              <div key={cat} style={{
-                padding: "9px 16px", fontSize: 13, cursor: "pointer", color: "#333", transition: "background .12s",
-                borderBottom: cat === "More category" ? "none" : "1px solid #f5f5f5",
-              }}
-                onMouseEnter={e => e.currentTarget.style.background = "#f0f5ff"}
-                onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-              >{cat}</div>
+              <div key={cat} className={`px-4 py-2.5 text-[13px] cursor-pointer text-gray-700 transition-colors hover:bg-blue-50 ${cat !== "More category" ? "border-b border-gray-50" : ""}`}>
+                {cat}
+              </div>
             ))}
           </div>
 
           {/* Hero banner */}
-          <div style={{
-            background: "linear-gradient(135deg,#b8d4f0 0%,#d4e8f7 50%,#e8f4f8 100%)",
-            borderRadius: 10, padding: "32px 40px",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            overflow: "hidden", position: "relative", minHeight: 240,
-          }}>
-            <div>
-              <p style={{ fontSize: 13, color: "#555", margin: "0 0 6px" }}>Latest trending</p>
-              <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1a1a2e", lineHeight: 1.25, margin: "0 0 20px" }}>
+          <div className="relative bg-gradient-to-br from-[#b8d4f0] via-[#d4e8f7] to-[#e8f4f8] rounded-xl p-8 flex items-center justify-between overflow-hidden min-h-[240px]">
+            <div className="relative z-10">
+              <p className="text-[13px] text-gray-600 mb-1.5">Latest trending</p>
+              <h1 className="text-3xl font-bold text-[#1a1a2e] leading-tight mb-5">
                 Electronic<br />items
               </h1>
-              <button style={{
-                padding: "10px 22px", background: "#fff", border: "none", borderRadius: 6,
-                fontSize: 13, fontWeight: 600, cursor: "pointer", color: "#222",
-                boxShadow: "0 2px 8px rgba(0,0,0,.1)",
-              }}>Learn more</button>
+              <button className="px-5 py-2.5 bg-white rounded-md text-[13px] font-semibold text-gray-800 shadow-sm hover:shadow-md transition-shadow">Learn more</button>
             </div>
-            <img src="images/tech/6.png" alt="Hero"
-              style={{ height: 200, objectFit: "contain", filter: "drop-shadow(0 8px 24px rgba(0,0,0,.18))" }} />
+            <img src={heroImg} alt="Hero" className="relative z-10 h-48 md:h-52 object-contain drop-shadow-2xl" />
           </div>
 
           {/* Right promo cards */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e8e8e8", padding: "14px 16px" }}>
-              <p style={{ fontSize: 13, color: "#666", margin: "0 0 10px" }}>
-                Hi, <strong>user</strong><br /><span style={{ fontSize: 12 }}>let's get started</span>
+          <div className="flex flex-col gap-3">
+            <div className="bg-white rounded-lg border border-gray-200 p-4">
+              <p className="text-[13px] text-gray-600 mb-2.5">
+                Hi, <strong className="text-gray-800">user</strong><br /><span className="text-xs">let's get started</span>
               </p>
-              <div style={{ display: "flex", gap: 8 }}>
-                <button style={{ flex: 1, padding: "7px 0", background: "#2563eb", color: "#fff", border: "none", borderRadius: 5, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>Join now</button>
-                <button style={{ flex: 1, padding: "7px 0", background: "#fff", color: "#2563eb", border: "1.5px solid #2563eb", borderRadius: 5, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>Log in</button>
+              <div className="flex gap-2">
+                <button className="flex-1 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors">Join now</button>
+                <button className="flex-1 py-1.5 bg-white text-blue-600 border border-blue-600 rounded-md text-xs font-semibold hover:bg-blue-50 transition-colors">Log in</button>
               </div>
             </div>
-            <div style={{ background: "linear-gradient(135deg,#f59e0b,#fbbf24)", borderRadius: 8, padding: "14px 16px" }}>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", margin: 0 }}>Get US $10 off<br />with a new supplier</p>
+            <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg p-4">
+              <p className="text-[13px] font-bold text-white">Get US $10 off<br />with a new supplier</p>
             </div>
-            <div style={{ background: "linear-gradient(135deg,#a78bfa,#7c3aed)", borderRadius: 8, padding: "14px 16px" }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "#fff", margin: 0 }}>Send quotes with<br />supplier preferences</p>
+            <div className="bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg p-4">
+              <p className="text-xs font-semibold text-white">Send quotes with<br />supplier preferences</p>
             </div>
           </div>
         </div>
 
         {/* ── DEALS & OFFERS ───────────────────────────────── */}
-        <div style={{
-          background: "#fff", borderRadius: 10, border: "1px solid #e8e8e8",
-          padding: "16px 20px", marginBottom: 24, display: "flex", alignItems: "center",
-        }}>
-          <div style={{ minWidth: 190, paddingRight: 20, borderRight: "1px solid #e8e8e8" }}>
-            <h3 style={{ margin: "0 0 4px", fontSize: 16, fontWeight: 700 }}>Deals and offers</h3>
-            <p style={{ margin: "0 0 12px", fontSize: 12, color: "#888" }}>Hygiene equipments</p>
-            <div style={{ display: "flex", gap: 8 }}>
+        <div className="bg-white rounded-lg border border-gray-200 p-5 mb-6 flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-[190px] md:pr-5 md:border-r border-gray-200 mb-4 md:mb-0">
+            <h3 className="text-base font-bold mb-1">Deals and offers</h3>
+            <p className="text-xs text-gray-400 mb-3">Hygiene equipments</p>
+            <div className="flex gap-2 justify-center md:justify-start">
               <TimerBlock value={days}  label="Days" />
               <TimerBlock value={hours} label="Hour" />
               <TimerBlock value={mins}  label="Min" />
               <TimerBlock value={secs}  label="Sec" />
             </div>
           </div>
-          <div style={{ flex: 1, display: "flex" }}>
+          <div className="flex-1 flex overflow-x-auto w-full scrollbar-hide">
             {dealProducts.map((p, i) => (
-              <div key={p.id} style={{
-                flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
-                padding: "8px 10px", cursor: "pointer",
-                borderRight: i < dealProducts.length - 1 ? "1px solid #f0f0f0" : "none",
-              }}>
-                <img src={p.img} alt={p.name} style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 8, marginBottom: 8 }} />
-                <div style={{ fontSize: 12, fontWeight: 500, color: "#333", textAlign: "center", marginBottom: 6 }}>{p.name}</div>
-                <div style={{ background: "#fee2e2", color: "#dc2626", borderRadius: 20, padding: "3px 10px", fontSize: 11, fontWeight: 700 }}>
+              <div key={p.id} className={`flex-1 min-w-[120px] flex flex-col items-center p-2 cursor-pointer transition-colors hover:bg-gray-50 ${i < dealProducts.length - 1 ? "border-r border-gray-50" : ""}`}>
+                <img src={p.img} alt={p.name} className="w-20 h-20 object-cover rounded-lg mb-2" />
+                <div className="text-xs font-medium text-gray-700 text-center mb-1.5">{p.name}</div>
+                <div className="bg-red-100 text-red-600 rounded-full px-2.5 py-0.5 text-[11px] font-bold">
                   -{p.discount}%
                 </div>
               </div>
@@ -297,86 +221,55 @@ export default function Home() {
         {/* ── HOME & OUTDOOR ───────────────────────────────── */}
         <SectionPanel
           title="Home and outdoor"
-          bannerImg="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=80"
+          bannerImg="images/backgrounds/Group 969.png"
           items={homeItems}
         />
 
         {/* ── CONSUMER ELECTRONICS ─────────────────────────── */}
         <SectionPanel
           title="Consumer electronics and gadgets"
-          bannerImg="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=80"
+          bannerImg="images/backgrounds/Group 982.png"
           items={electronicsItems}
         />
 
         {/* ── SUPPLIER INQUIRY BANNER ──────────────────────── */}
-        <div style={{
-          background: "linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%)",
-          borderRadius: 10, padding: "40px 48px", marginBottom: 24,
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center",
-        }}>
+        <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 rounded-xl p-10 mb-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 style={{ color: "#fff", fontSize: 22, fontWeight: 700, margin: "0 0 10px" }}>
+            <h2 className="text-white text-2xl font-bold mb-3">
               An easy way to send<br />requests to all suppliers
             </h2>
-            <p style={{ color: "#bfdbfe", fontSize: 13, lineHeight: 1.7, margin: 0 }}>
+            <p className="text-blue-200 text-[13px] leading-relaxed">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt.
             </p>
           </div>
-          <div style={{ background: "#fff", borderRadius: 10, padding: 24 }}>
-            <p style={{ fontSize: 13, color: "#888", margin: "0 0 12px" }}>Send quote to suppliers</p>
-            <input placeholder="What item you need?" style={{
-              width: "100%", padding: "10px 12px", border: "1px solid #e0e0e0",
-              borderRadius: 6, fontSize: 13, marginBottom: 10,
-              boxSizing: "border-box", outline: "none", fontFamily: "inherit",
-            }} />
-            <textarea placeholder="Type more details" rows={3} style={{
-              width: "100%", padding: "10px 12px", border: "1px solid #e0e0e0",
-              borderRadius: 6, fontSize: 13, marginBottom: 10,
-              boxSizing: "border-box", resize: "none", outline: "none", fontFamily: "inherit",
-            }} />
-            <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
-              <input placeholder="Quantity" style={{
-                flex: 1, padding: "9px 12px", border: "1px solid #e0e0e0",
-                borderRadius: 6, fontSize: 13, outline: "none", fontFamily: "inherit",
-              }} />
-              <select style={{
-                padding: "9px 12px", border: "1px solid #e0e0e0", borderRadius: 6,
-                fontSize: 13, background: "#fff", outline: "none", cursor: "pointer", fontFamily: "inherit",
-              }}>
+          <div className="bg-white rounded-xl p-6 shadow-xl">
+            <p className="text-[13px] text-gray-500 mb-3">Send quote to suppliers</p>
+            <input placeholder="What item you need?" className="w-full px-3 py-2 border border-gray-200 rounded-md text-[13px] mb-2.5 focus:border-blue-500 outline-none transition-colors" />
+            <textarea placeholder="Type more details" rows={3} className="w-full px-3 py-2 border border-gray-200 rounded-md text-[13px] mb-2.5 focus:border-blue-500 outline-none resize-none transition-colors" />
+            <div className="flex gap-2.5 mb-3.5">
+              <input placeholder="Quantity" className="flex-1 px-3 py-2 border border-gray-200 rounded-md text-[13px] focus:border-blue-500 outline-none transition-colors" />
+              <select className="px-3 py-2 border border-gray-200 rounded-md text-[13px] bg-white cursor-pointer focus:border-blue-500 outline-none">
                 <option>Pcs</option><option>Kg</option><option>Ltr</option>
               </select>
             </div>
-            <button style={{
-              width: "100%", padding: "11px 0", background: "#2563eb", color: "#fff",
-              border: "none", borderRadius: 6, fontSize: 14, fontWeight: 600, cursor: "pointer",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-              onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-            >Send Inquiry</button>
+            <button className="w-full py-2.5 bg-blue-600 text-white rounded-md text-[14px] font-semibold hover:bg-blue-700 transition-colors shadow-md">Send Inquiry</button>
           </div>
         </div>
 
         {/* ── RECOMMENDED ITEMS ────────────────────────────── */}
-        <div style={{ marginBottom: 32 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-            <h3 style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>Recommended items</h3>
-            <a href="#" style={{ fontSize: 13, color: "#2563eb", textDecoration: "none" }}>View all →</a>
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold">Recommended items</h3>
+            <a href="#" className="text-[13px] text-blue-600 hover:underline">View all →</a>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12 }}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {recommendedItems.map((item) => (
-              <div key={item.id} style={{
-                background: "#fff", borderRadius: 8,
-                border: "1px solid #e8e8e8", overflow: "hidden",
-                cursor: "pointer", transition: "box-shadow .18s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.10)"}
-                onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-              >
-                <img src={item.img} alt={item.name} style={{ width: "100%", height: 130, objectFit: "cover" }} />
-                <div style={{ padding: "10px 10px 12px" }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: "#222", marginBottom: 4 }}>{item.price}</div>
-                  <div style={{ fontSize: 12, color: "#666", lineHeight: 1.4 }}>{item.name}</div>
+              <div key={item.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:shadow-lg transition-all">
+                <img src={item.img} alt={item.name} className="w-full h-[130px] object-cover" />
+                <div className="p-3">
+                  <div className="text-sm font-bold text-gray-800 mb-1">{item.price}</div>
+                  <div className="text-xs text-gray-500 leading-normal line-clamp-2">{item.name}</div>
                 </div>
               </div>
             ))}
@@ -384,34 +277,16 @@ export default function Home() {
         </div>
 
         {/* ── OUR EXTRA SERVICES ───────────────────────────── */}
-        <div style={{ marginBottom: 32 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>Our extra services</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+        <div className="mb-8">
+          <h3 className="text-lg font-bold mb-4">Our extra services</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {extraServices.map((svc) => (
-              <div key={svc.id} style={{
-                borderRadius: 10, overflow: "hidden", position: "relative",
-                cursor: "pointer", border: "1px solid #e8e8e8",
-                transition: "box-shadow .18s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.12)"}
-                onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-              >
-                <img src={svc.img} alt={svc.label} style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }} />
-                {/* Icon circle */}
-                <div style={{
-                  position: "absolute", bottom: 44, right: 10,
-                  width: 32, height: 32, background: "rgba(255,255,255,.9)",
-                  borderRadius: "50%", display: "flex", alignItems: "center",
-                  justifyContent: "center", fontSize: 16,
-                  boxShadow: "0 2px 8px rgba(0,0,0,.15)",
-                }}>
+              <div key={svc.id} className="group rounded-xl overflow-hidden relative cursor-pointer border border-gray-200 hover:shadow-lg transition-all bg-white">
+                <img src={svc.img} alt={svc.label} className="w-full h-32 object-cover block" />
+                <div className="absolute bottom-11 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-lg shadow-md border border-gray-100 group-hover:scale-110 transition-transform">
                   {svc.icon}
                 </div>
-                {/* Label */}
-                <div style={{
-                  padding: "10px 12px", background: "#fff",
-                  fontSize: 13, fontWeight: 500, color: "#222", lineHeight: 1.4,
-                }}>
+                <div className="p-3 bg-white text-[13px] font-medium text-gray-800 leading-tight pr-12">
                   {svc.label}
                 </div>
               </div>
@@ -420,18 +295,15 @@ export default function Home() {
         </div>
 
         {/* ── SUPPLIERS BY REGION ──────────────────────────── */}
-        <div style={{
-          background: "#fff", border: "1px solid #e8e8e8",
-          borderRadius: 10, padding: "20px 24px", marginBottom: 24,
-        }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>Suppliers by region</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "10px 0" }}>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h3 className="text-lg font-bold mb-4">Suppliers by region</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-3">
             {suppliers.map((s, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", padding: "4px 0" }}>
-                <span style={{ fontSize: 22 }}>{s.flag}</span>
+              <div key={i} className="flex items-center gap-2.5 cursor-pointer py-1 group">
+                <span className="text-2xl group-hover:scale-110 transition-transform">{s.flag}</span>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: "#222" }}>{s.country}</div>
-                  <div style={{ fontSize: 11, color: "#2563eb" }}>{s.url}</div>
+                  <div className="text-[13px] font-medium text-gray-800">{s.country}</div>
+                  <div className="text-[11px] text-blue-600">{s.url}</div>
                 </div>
               </div>
             ))}
@@ -441,34 +313,21 @@ export default function Home() {
       </main>
 
       {/* ── SUBSCRIBE BANNER ────────────────────────────────── */}
-      <div style={{
-        background: "#fff", borderTop: "1px solid #e8e8e8",
-        borderBottom: "1px solid #e8e8e8", padding: "28px 20px", textAlign: "center",
-      }}>
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 6px" }}>Subscribe on our newsletter</h3>
-          <p style={{ fontSize: 13, color: "#888", margin: "0 0 16px" }}>
+      <div className="bg-white border-y border-gray-200 py-8 px-5 text-center">
+        <div className="max-w-[600px] mx-auto">
+          <h3 className="text-lg font-bold mb-1.5">Subscribe on our newsletter</h3>
+          <p className="text-[13px] text-gray-400 mb-4">
             Get daily news on upcoming offers from many suppliers all over the world
           </p>
-          <div style={{ display: "flex", gap: 0, border: "1.5px solid #2563eb", borderRadius: 7, overflow: "hidden", maxWidth: 440, margin: "0 auto" }}>
+          <div className="flex border-[1.5px] border-blue-600 rounded-lg overflow-hidden max-w-[440px] mx-auto">
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              style={{
-                flex: 1, padding: "10px 16px", border: "none", outline: "none",
-                fontSize: 13, fontFamily: "inherit",
-              }}
+              className="flex-1 px-4 py-2 text-[13px] outline-none"
             />
-            <button style={{
-              background: "#2563eb", color: "#fff", border: "none",
-              padding: "0 22px", fontSize: 13, fontWeight: 600, cursor: "pointer",
-              transition: "background .15s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-              onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-            >
+            <button className="bg-blue-600 text-white px-5 py-2 text-[13px] font-semibold hover:bg-blue-700 transition-colors">
               Subscribe
             </button>
           </div>
@@ -476,31 +335,20 @@ export default function Home() {
       </div>
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer style={{ background: "#1a1a2e", color: "#9ca3af", padding: "36px 20px 20px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 32 }}>
+      <footer className="bg-[#1a1a2e] text-gray-400 py-10 px-5">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
 
           {/* Brand col */}
-          <div>
-            <div style={{
-              background: "#2563eb", color: "#fff", borderRadius: 6,
-              padding: "5px 12px", fontSize: 15, fontWeight: 700,
-              display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 12,
-            }}>🛒 Brand</div>
-            <div style={{ fontSize: 12, lineHeight: 1.7, marginBottom: 12 }}>
+          <div className="lg:col-span-1">
+            <div className="bg-blue-600 text-white rounded-md px-3 py-1.5 text-base font-bold inline-flex items-center gap-2 mb-4">
+              🛒 Brand
+            </div>
+            <div className="text-xs leading-relaxed mb-4 max-w-[200px]">
               Best information about the company goes here but now lorem ipsum is
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
+            <div className="flex gap-2">
               {["Facebook", "Twitter", "LinkedIn", "Instagram", "YouTube"].map((s, i) => (
-                <div key={s} style={{
-                  width: 28, height: 28, borderRadius: "50%", background: "#374151",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, cursor: "pointer", color: "#9ca3af",
-                  transition: "background .15s",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.background = "#2563eb"}
-                  onMouseLeave={e => e.currentTarget.style.background = "#374151"}
-                  title={s}
-                >
+                <div key={s} className="w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-[10px] cursor-pointer hover:bg-blue-600 transition-colors" title={s}>
                   {["f", "t", "in", "ig", "yt"][i]}
                 </div>
               ))}
@@ -514,32 +362,22 @@ export default function Home() {
             { title: "Contact", links: ["(+91) 999 999 9999", "support@brand.com"] },
           ].map(col => (
             <div key={col.title}>
-              <h4 style={{ color: "#f9fafb", fontSize: 14, fontWeight: 600, margin: "0 0 12px" }}>{col.title}</h4>
-              {col.links.map(link => (
-                <div key={link} style={{ fontSize: 12, marginBottom: 8, cursor: "pointer", transition: "color .12s" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "#60a5fa"}
-                  onMouseLeave={e => e.currentTarget.style.color = "#9ca3af"}
-                >{link}</div>
-              ))}
+              <h4 className="text-gray-50 text-[14px] font-semibold mb-4">{col.title}</h4>
+              <ul className="space-y-2">
+                {col.links.map(link => (
+                  <li key={link} className="text-xs hover:text-blue-400 cursor-pointer transition-colors">{link}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
 
         {/* Bottom bar */}
-        <div style={{
-          maxWidth: 1200, margin: "24px auto 0",
-          borderTop: "1px solid #374151", paddingTop: 16,
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          fontSize: 12,
-        }}>
+        <div className="max-w-[1200px] mx-auto mt-10 border-t border-gray-700 pt-5 flex flex-col sm:flex-row justify-between items-center text-xs gap-4">
           <span>© 2024 Brand. All rights reserved.</span>
-          <div style={{ display: "flex", gap: 16 }}>
-            {["Privacy Policy", "Terms & Conditions"].map(l => (
-              <span key={l} style={{ cursor: "pointer", transition: "color .12s" }}
-                onMouseEnter={e => e.currentTarget.style.color = "#60a5fa"}
-                onMouseLeave={e => e.currentTarget.style.color = "#9ca3af"}
-              >{l}</span>
-            ))}
+          <div className="flex gap-5">
+            <span className="cursor-pointer hover:text-blue-400 transition-colors">Privacy Policy</span>
+            <span className="cursor-pointer hover:text-blue-400 transition-colors">Terms & Conditions</span>
           </div>
         </div>
       </footer>

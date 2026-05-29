@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 // ─── Icons ────────────────────────────────────────────────────────────────────
 const Icon = ({ d, size = 16, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d={d} />
   </svg>
 );
@@ -34,7 +34,7 @@ const allProducts = [
     id: 1, name: "Canon Camera EOS 2000, Black 10x zoom",
     price: 998.00, oldPrice: 1128.00, rating: 7.5, orders: 154,
     shipping: "Free Shipping", verified: true,
-    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=180&q=80",
+    img: "images/tech/image 32.png",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     category: "Electronics", brand: "Samsung",
   },
@@ -42,7 +42,7 @@ const allProducts = [
     id: 2, name: "GoPro HERO6 4K Action Camera – Black",
     price: 998.00, oldPrice: null, rating: 7.5, orders: 154,
     shipping: "Free Shipping", verified: true,
-    img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=180&q=80",
+    img: "images/tech/image 29.png",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea ea commodo consequat. Duis aute irure dolor in reprehenderit.",
     category: "Electronics", brand: "Apple",
   },
@@ -50,7 +50,7 @@ const allProducts = [
     id: 3, name: "GoPro HERO6 4K Action Camera – Black",
     price: 998.00, oldPrice: null, rating: 7.5, orders: 164,
     shipping: "Free Shipping", verified: false,
-    img: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=180&q=80",
+    img: "images/tech/image 85.png",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea ea commodo consequat. Duis aute irure dolor in reprehenderit.",
     category: "Smartphones", brand: "HUAWEI",
   },
@@ -58,7 +58,7 @@ const allProducts = [
     id: 4, name: "GoPro HERO6 4K Action Camera – Black",
     price: 998.00, oldPrice: null, rating: 7.5, orders: 164,
     shipping: "Free Shipping", verified: true,
-    img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=180&q=80",
+    img: "images/tech/image 33.png",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea ea commodo consequat. Duis aute irure dolor in reprehenderit.",
     category: "Modern tech", brand: "Xiaomi",
   },
@@ -66,7 +66,7 @@ const allProducts = [
     id: 5, name: "GoPro HERO6 4K Action Camera – Black",
     price: 998.00, oldPrice: 1128.00, rating: 7.5, orders: 164,
     shipping: "Free Shipping", verified: true,
-    img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=180&q=80",
+    img: "images/tech/image 34.png",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea ea commodo consequat. Duis aute irure dolor in reprehenderit.",
     category: "Electronics", brand: "Lenovo",
   },
@@ -74,7 +74,7 @@ const allProducts = [
     id: 6, name: "GoPro HERO6 4K Action Camera – Black",
     price: 998.00, oldPrice: null, rating: 7.5, orders: 164,
     shipping: "Free Shipping", verified: false,
-    img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=180&q=80",
+    img: "images/tech/8.png",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea ea commodo consequat. Duis aute irure dolor in reprehenderit.",
     category: "Electronics", brand: "Samsung",
   },
@@ -90,7 +90,7 @@ const ratingList    = [5, 4, 3, 2];
 // ─── Helper: Stars ─────────────────────────────────────────────────────────────
 function Stars({ rating, max = 5 }) {
   return (
-    <span style={{ display: "inline-flex", gap: 1 }}>
+    <span className="inline-flex gap-0.5">
       {Array.from({ length: max }, (_, i) => (
         <StarIcon key={i} filled={i < Math.round(rating)} />
       ))}
@@ -102,19 +102,15 @@ function Stars({ rating, max = 5 }) {
 function FilterSection({ title, children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div style={{ borderBottom: "1px solid #f0f0f0", paddingBottom: 14, marginBottom: 14 }}>
+    <div className="border-b border-gray-100 pb-3.5 mb-3.5 last:border-0 last:mb-0">
       <div
         onClick={() => setOpen(v => !v)}
-        style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          cursor: "pointer", marginBottom: open ? 10 : 0,
-        }}
+        className="flex justify-between items-center cursor-pointer mb-2.5"
       >
-        <span style={{ fontSize: 14, fontWeight: 600, color: "#222" }}>{title}</span>
-        <span style={{
-          transform: open ? "rotate(180deg)" : "rotate(0deg)",
-          transition: "transform .2s", display: "flex"
-        }}><ChevronDown /></span>
+        <span className="text-sm font-semibold text-gray-800">{title}</span>
+        <span className={`transition-transform duration-200 ${open ? "rotate-180" : "rotate-0"}`}>
+          <ChevronDown />
+        </span>
       </div>
       {open && children}
     </div>
@@ -127,83 +123,61 @@ function ProductCard({ product }) {
   const nav = useNavigate();
 
   return (
-    <div style={{
-      background: "#fff", border: "1px solid #e8e8e8", borderRadius: 8,
-      display: "flex", gap: 0, overflow: "hidden",
-      transition: "box-shadow .18s", marginBottom: 12,
-    }}
-      onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"}
-      onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-    >
+    <div className="bg-white border border-gray-200 rounded-lg flex flex-col sm:flex-row overflow-hidden hover:shadow-md transition-shadow mb-3">
       {/* Product image */}
-      <div style={{
-        width: 180, minHeight: 160, flexShrink: 0,
-        background: "#f8f8f8", display: "flex", alignItems: "center", justifyContent: "center",
-        borderRight: "1px solid #f0f0f0",
-      }}>
-        <img src={product.img} alt={product.name}
-          style={{ width: "100%", height: 160, objectFit: "cover" }} />
+      <div className="w-full sm:w-[180px] min-h-[160px] flex-shrink-0 bg-gray-50 flex items-center justify-center border-b sm:border-b-0 sm:border-r border-gray-100">
+        <img src={product.img} alt={product.name} className="w-full h-[160px] object-cover" />
       </div>
 
       {/* Product info */}
-      <div style={{ flex: 1, padding: "16px 20px", position: "relative" }}>
+      <div className="flex-1 p-4 sm:p-5 relative">
 
         {/* Wishlist button */}
         <button
           onClick={() => setWished(v => !v)}
-          style={{
-            position: "absolute", top: 14, right: 14,
-            background: "none", border: "none", cursor: "pointer", padding: 4,
-          }}
+          className="absolute top-3.5 right-3.5 p-1 hover:bg-gray-100 rounded-full transition-colors"
         >
           <HeartIcon filled={wished} />
         </button>
 
         {/* Name */}
-        <div style={{ fontSize: 15, fontWeight: 600, color: "#222", marginBottom: 6, paddingRight: 30 }}>
+        <div className="text-base font-semibold text-gray-800 mb-1.5 pr-8">
           {product.name}
         </div>
 
         {/* Price row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-          <span style={{ fontSize: 18, fontWeight: 700, color: "#222" }}>
+        <div className="flex items-center gap-2.5 mb-1.5">
+          <span className="text-lg font-bold text-gray-800">
             ${product.price.toFixed(2)}
           </span>
           {product.oldPrice && (
-            <span style={{ fontSize: 14, color: "#aaa", textDecoration: "line-through" }}>
+            <span className="text-sm text-gray-400 line-through">
               ${product.oldPrice.toFixed(2)}
             </span>
           )}
         </div>
 
         {/* Rating + orders + shipping */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
+        <div className="flex items-center gap-2.5 mb-2 flex-wrap text-xs text-gray-500">
           <Stars rating={product.rating / 2} />
-          <span style={{ fontSize: 12, color: "#888" }}>{product.rating}</span>
-          <span style={{ fontSize: 12, color: "#ccc" }}>|</span>
-          <span style={{ fontSize: 12, color: "#888" }}>{product.orders} orders</span>
-          <span style={{ fontSize: 12, color: "#ccc" }}>|</span>
-          <span style={{ fontSize: 12, color: "#22c55e", fontWeight: 500 }}>
-            ✦ {product.shipping}
+          <span className="text-orange-500 font-medium">{product.rating}</span>
+          <span className="text-gray-300">|</span>
+          <span>{product.orders} orders</span>
+          <span className="text-gray-300">|</span>
+          <span className="text-green-600 font-medium flex items-center gap-1">
+            <span className="text-[10px]">✦</span> {product.shipping}
           </span>
         </div>
 
         {/* Description */}
-        <p style={{
-          fontSize: 13, color: "#888", lineHeight: 1.6, margin: "0 0 10px",
-          display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}>
+        <p className="text-[13px] text-gray-500 leading-relaxed mb-2.5 line-clamp-2">
           {product.desc}
         </p>
 
         {/* View details */}
         <button
           onClick={() => nav(`/products/${product.id}`)}
-          style={{
-            background: "none", border: "none", color: "#2563eb",
-            fontSize: 13, fontWeight: 500, cursor: "pointer", padding: 0,
-          }}
+          className="text-[13px] font-semibold text-blue-600 hover:text-blue-700 transition-colors"
         >
           View details
         </button>
@@ -214,7 +188,6 @@ function ProductCard({ product }) {
 
 // ─── Main Products Page ────────────────────────────────────────────────────────
 export default function Products() {
-  // Filter states
   const [selectedCategory, setSelectedCategory] = useState("Mobile accessory");
   const [selectedBrands,   setSelectedBrands]   = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
@@ -228,11 +201,9 @@ export default function Products() {
   const [page,             setPage]               = useState(1);
   const [email,            setEmail]              = useState("");
 
-  // Toggle helpers
   const toggleBrand   = b => setSelectedBrands(p => p.includes(b) ? p.filter(x => x !== b) : [...p, b]);
   const toggleFeature = f => setSelectedFeatures(p => p.includes(f) ? p.filter(x => x !== f) : [...p, f]);
 
-  // Filtered products
   const filtered = useMemo(() => {
     return allProducts.filter(p => {
       if (verifiedOnly && !p.verified) return false;
@@ -251,17 +222,8 @@ export default function Products() {
 
   // ── Checkbox helper ──────────────────────────────────────────────────────────
   const Checkbox = ({ checked, onChange, label }) => (
-    <label style={{
-      display: "flex", alignItems: "center", gap: 8,
-      cursor: "pointer", fontSize: 13, color: "#444", marginBottom: 6,
-    }}>
-      <div onClick={onChange} style={{
-        width: 16, height: 16, borderRadius: 3, flexShrink: 0,
-        border: checked ? "none" : "1.5px solid #ccc",
-        background: checked ? "#2563eb" : "#fff",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        cursor: "pointer",
-      }}>
+    <label className="flex items-center gap-2 cursor-pointer text-[13px] text-gray-600 mb-1.5 hover:text-gray-800 transition-colors">
+      <div onClick={onChange} className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${checked ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300"}`}>
         {checked && <CheckIcon />}
       </div>
       {label}
@@ -270,167 +232,114 @@ export default function Products() {
 
   // ── Radio helper ─────────────────────────────────────────────────────────────
   const Radio = ({ checked, onChange, label }) => (
-    <label style={{
-      display: "flex", alignItems: "center", gap: 8,
-      cursor: "pointer", fontSize: 13, color: "#444", marginBottom: 6,
-    }}>
-      <div onClick={onChange} style={{
-        width: 16, height: 16, borderRadius: "50%", flexShrink: 0,
-        border: checked ? "4px solid #2563eb" : "1.5px solid #ccc",
-        background: "#fff", cursor: "pointer", boxSizing: "border-box",
-      }} />
+    <label className="flex items-center gap-2 cursor-pointer text-[13px] text-gray-600 mb-1.5 hover:text-gray-800 transition-colors">
+      <div onClick={onChange} className={`w-4 h-4 rounded-full border-2 flex-shrink-0 transition-all ${checked ? "border-blue-600 bg-white" : "border-gray-300 bg-white"}`}>
+        {checked && <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mx-auto mt-[1px]" />}
+      </div>
       {label}
     </label>
   );
 
   return (
-    <div style={{
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "#f5f5f5", minHeight: "100vh", color: "#222",
-    }}>
+    <div className="bg-gray-100 min-h-screen font-sans text-gray-800">
 
-      {/* ── NAVBAR ─────────────────────────────────────────── */}
       <Navbar />
 
       {/* ── BREADCRUMB ─────────────────────────────────────── */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #eee" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "10px 20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "#888" }}>
-            <Link to="/"        style={{ color: "#888", textDecoration: "none" }}>Home</Link>
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-[1200px] mx-auto px-5 py-2.5">
+          <div className="flex items-center gap-1.5 text-[13px] text-gray-400">
+            <Link to="/" className="hover:text-blue-600 transition-colors">Home</Link>
             <ChevronRight />
-            <Link to="/products" style={{ color: "#888", textDecoration: "none" }}>Clothings</Link>
+            <Link to="/products" className="hover:text-blue-600 transition-colors">Clothings</Link>
             <ChevronRight />
-            <Link to="/products" style={{ color: "#888", textDecoration: "none" }}>Men's wear</Link>
+            <Link to="/products" className="hover:text-blue-600 transition-colors">Men's wear</Link>
             <ChevronRight />
-            <span style={{ color: "#333" }}>Summer clothing</span>
+            <span className="text-gray-700 font-medium">Summer clothing</span>
           </div>
         </div>
       </div>
 
       {/* ── MAIN LAYOUT ────────────────────────────────────── */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "20px 20px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "220px 1fr", gap: 20 }}>
+      <div className="max-w-[1200px] mx-auto px-5 py-5">
+        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-5">
 
           {/* ── SIDEBAR ──────────────────────────────────── */}
-          <aside>
-            <div style={{
-              background: "#fff", borderRadius: 8,
-              border: "1px solid #e8e8e8", padding: "16px 16px 8px",
-            }}>
+          <aside className="hidden lg:block">
+            <div className="bg-white rounded-lg border border-gray-200 p-4 pt-4">
 
               {/* Category */}
               <FilterSection title="Category">
-                {categoryList.map(cat => (
-                  <div key={cat} onClick={() => setSelectedCategory(cat)} style={{
-                    padding: "6px 8px", fontSize: 13, cursor: "pointer", borderRadius: 4,
-                    color: selectedCategory === cat ? "#2563eb" : "#444",
-                    fontWeight: selectedCategory === cat ? 600 : 400,
-                    background: selectedCategory === cat ? "#eff6ff" : "transparent",
-                    transition: "background .12s",
-                  }}>{cat}</div>
-                ))}
-                <button style={{
-                  background: "none", border: "none", color: "#2563eb",
-                  fontSize: 12, cursor: "pointer", padding: "4px 8px", fontFamily: "inherit",
-                }}>See all</button>
+                <div className="space-y-1">
+                  {categoryList.map(cat => (
+                    <div key={cat} onClick={() => setSelectedCategory(cat)} className={`px-2 py-1.5 text-[13px] cursor-pointer rounded-md transition-all ${selectedCategory === cat ? "text-blue-600 font-semibold bg-blue-50" : "text-gray-600 hover:bg-gray-50"}`}>
+                      {cat}
+                    </div>
+                  ))}
+                  <button className="text-[12px] text-blue-600 font-medium px-2 py-1 hover:underline">See all</button>
+                </div>
               </FilterSection>
 
               {/* Brands */}
               <FilterSection title="Brands">
-                {brandList.map(b => (
-                  <Checkbox
-                    key={b} label={b}
-                    checked={selectedBrands.includes(b)}
-                    onChange={() => toggleBrand(b)}
-                  />
-                ))}
-                <button style={{
-                  background: "none", border: "none", color: "#2563eb",
-                  fontSize: 12, cursor: "pointer", padding: "2px 0", fontFamily: "inherit",
-                }}>See all</button>
+                <div className="mt-1">
+                  {brandList.map(b => (
+                    <Checkbox key={b} label={b} checked={selectedBrands.includes(b)} onChange={() => toggleBrand(b)} />
+                  ))}
+                  <button className="text-[12px] text-blue-600 font-medium py-1 hover:underline">See all</button>
+                </div>
               </FilterSection>
 
               {/* Features */}
               <FilterSection title="Features">
-                {featureList.map(f => (
-                  <Checkbox
-                    key={f} label={f}
-                    checked={selectedFeatures.includes(f)}
-                    onChange={() => toggleFeature(f)}
-                  />
-                ))}
-                <button style={{
-                  background: "none", border: "none", color: "#2563eb",
-                  fontSize: 12, cursor: "pointer", padding: "2px 0", fontFamily: "inherit",
-                }}>See all</button>
+                <div className="mt-1">
+                  {featureList.map(f => (
+                    <Checkbox key={f} label={f} checked={selectedFeatures.includes(f)} onChange={() => toggleFeature(f)} />
+                  ))}
+                  <button className="text-[12px] text-blue-600 font-medium py-1 hover:underline">See all</button>
+                </div>
               </FilterSection>
 
               {/* Price Range */}
               <FilterSection title="Price range">
-                {/* Slider (visual only) */}
-                <div style={{ marginBottom: 10 }}>
-                  <input type="range" min="0" max="99999" style={{ width: "100%", accentColor: "#2563eb" }} />
+                <div className="mb-3">
+                  <input type="range" min="0" max="99999" className="w-full h-1.5 bg-blue-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
                 </div>
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 11, color: "#888", marginBottom: 3 }}>Min</div>
-                    <input value={priceMin} onChange={e => setPriceMin(e.target.value)}
-                      placeholder="0"
-                      style={{
-                        width: "100%", padding: "6px 8px", border: "1px solid #e0e0e0",
-                        borderRadius: 4, fontSize: 12, outline: "none",
-                        boxSizing: "border-box", fontFamily: "inherit",
-                      }} />
+                <div className="flex gap-2 mb-2.5">
+                  <div className="flex-1">
+                    <label className="text-[11px] text-gray-400 mb-1 block">Min</label>
+                    <input value={priceMin} onChange={e => setPriceMin(e.target.value)} placeholder="0" className="w-full px-2 py-1.5 border border-gray-200 rounded text-xs outline-none focus:border-blue-500 transition-colors" />
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 11, color: "#888", marginBottom: 3 }}>Max</div>
-                    <input value={priceMax} onChange={e => setPriceMax(e.target.value)}
-                      placeholder="999999"
-                      style={{
-                        width: "100%", padding: "6px 8px", border: "1px solid #e0e0e0",
-                        borderRadius: 4, fontSize: 12, outline: "none",
-                        boxSizing: "border-box", fontFamily: "inherit",
-                      }} />
+                  <div className="flex-1">
+                    <label className="text-[11px] text-gray-400 mb-1 block">Max</label>
+                    <input value={priceMax} onChange={e => setPriceMax(e.target.value)} placeholder="999999" className="w-full px-2 py-1.5 border border-gray-200 rounded text-xs outline-none focus:border-blue-500 transition-colors" />
                   </div>
                 </div>
-                <button style={{
-                  width: "100%", padding: "7px 0", background: "#2563eb", color: "#fff",
-                  border: "none", borderRadius: 4, fontSize: 12, fontWeight: 600,
-                  cursor: "pointer", fontFamily: "inherit",
-                }}>Apply</button>
+                <button className="w-full py-1.5 bg-white border border-gray-200 rounded text-[12px] font-bold text-blue-600 hover:bg-blue-50 transition-colors shadow-sm">Apply</button>
               </FilterSection>
 
               {/* Condition */}
               <FilterSection title="Condition">
-                {conditionList.map(c => (
-                  <Radio
-                    key={c} label={c}
-                    checked={condition === c}
-                    onChange={() => setCondition(c)}
-                  />
-                ))}
+                <div className="mt-1">
+                  {conditionList.map(c => (
+                    <Radio key={c} label={c} checked={condition === c} onChange={() => setCondition(c)} />
+                  ))}
+                </div>
               </FilterSection>
 
               {/* Ratings */}
-              <FilterSection title="Ratings" defaultOpen={true}>
-                {ratingList.map(r => (
-                  <div key={r} onClick={() => setSelectedRating(selectedRating === r ? null : r)}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 6,
-                      cursor: "pointer", padding: "3px 0",
-                    }}>
-                    <div style={{
-                      width: 16, height: 16, borderRadius: 3, flexShrink: 0,
-                      border: selectedRating === r ? "none" : "1.5px solid #ccc",
-                      background: selectedRating === r ? "#2563eb" : "#fff",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>
-                      {selectedRating === r && <CheckIcon />}
+              <FilterSection title="Ratings">
+                <div className="mt-1 space-y-1.5">
+                  {ratingList.map(r => (
+                    <div key={r} onClick={() => setSelectedRating(selectedRating === r ? null : r)} className="flex items-center gap-2 cursor-pointer group">
+                      <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${selectedRating === r ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300 group-hover:border-blue-300"}`}>
+                        {selectedRating === r && <CheckIcon />}
+                      </div>
+                      <Stars rating={r} />
+                      <span className="text-xs text-gray-400">& up</span>
                     </div>
-                    <Stars rating={r} />
-                    <span style={{ fontSize: 12, color: "#888" }}>& up</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </FilterSection>
 
             </div>
@@ -439,98 +348,61 @@ export default function Products() {
           {/* ── MAIN CONTENT ───────────────────────────────── */}
           <div>
             {/* ── TOOLBAR ────────────────────────────────── */}
-            <div style={{
-              background: "#fff", border: "1px solid #e8e8e8", borderRadius: 8,
-              padding: "10px 16px", marginBottom: 14,
-              display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap",
-            }}>
-              <span style={{ fontSize: 13, color: "#888" }}>
-                <strong style={{ color: "#222" }}>12,911 items</strong> in Mobile accessory
+            <div className="bg-white border border-gray-200 rounded-lg p-3 px-4 mb-4 flex flex-col sm:flex-row items-center gap-4">
+              <span className="text-[13px] text-gray-500 mr-auto">
+                <strong className="text-gray-800">12,911 items</strong> in Mobile accessory
               </span>
 
-              {/* Verified only toggle */}
-              <label style={{
-                display: "flex", alignItems: "center", gap: 6,
-                cursor: "pointer", marginLeft: 8,
-              }}>
-                <div onClick={() => setVerifiedOnly(v => !v)} style={{
-                  width: 16, height: 16, borderRadius: 3,
-                  border: verifiedOnly ? "none" : "1.5px solid #ccc",
-                  background: verifiedOnly ? "#2563eb" : "#fff",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  cursor: "pointer",
-                }}>
-                  {verifiedOnly && <CheckIcon />}
+              <div className="flex items-center gap-5 w-full sm:w-auto justify-between sm:justify-end">
+                {/* Verified only toggle */}
+                <label className="flex items-center gap-2 cursor-pointer text-[13px] text-gray-700 hover:text-blue-600 transition-colors">
+                  <div onClick={() => setVerifiedOnly(v => !v)} className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${verifiedOnly ? "bg-blue-600 border-blue-600" : "bg-white border-gray-300"}`}>
+                    {verifiedOnly && <CheckIcon />}
+                  </div>
+                  <span>Verified only</span>
+                </label>
+
+                {/* Sort by */}
+                <div className="flex items-center gap-2">
+                  <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="border border-gray-200 rounded px-2.5 py-1 text-[13px] bg-white outline-none focus:border-blue-500 cursor-pointer">
+                    <option>Featured</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                  </select>
                 </div>
-                <span style={{ fontSize: 13, color: "#444" }}>Verified only</span>
-              </label>
 
-              <div style={{ flex: 1 }} />
-
-              {/* Sort by */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 13, color: "#888" }}>Featured</span>
-                <select value={sortBy} onChange={e => setSortBy(e.target.value)} style={{
-                  border: "1px solid #e0e0e0", borderRadius: 4, padding: "5px 8px",
-                  fontSize: 13, background: "#fff", cursor: "pointer",
-                  outline: "none", fontFamily: "inherit",
-                }}>
-                  <option>Featured</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Newest First</option>
-                </select>
-              </div>
-
-              {/* Grid/List toggle */}
-              <div style={{ display: "flex", border: "1px solid #e0e0e0", borderRadius: 4, overflow: "hidden" }}>
-                {[
-                  { icon: <GridIcon />, view: "grid" },
-                  { icon: <ListIcon />, view: "list" },
-                ].map(({ icon, view }) => (
-                  <button key={view} style={{
-                    padding: "5px 10px", border: "none", cursor: "pointer",
-                    background: "#fff", color: "#666",
-                    borderLeft: view === "list" ? "1px solid #e0e0e0" : "none",
-                  }}>{icon}</button>
-                ))}
+                {/* Grid/List toggle */}
+                <div className="flex border border-gray-200 rounded overflow-hidden">
+                  <button className="p-1.5 px-2.5 bg-gray-50 text-gray-600 border-r border-gray-200 hover:bg-gray-100 transition-colors"><GridIcon /></button>
+                  <button className="p-1.5 px-2.5 bg-white text-blue-600 hover:bg-gray-50 transition-colors"><ListIcon /></button>
+                </div>
               </div>
             </div>
 
             {/* ── PRODUCT LIST ─────────────────────────── */}
-            {filtered.length === 0 ? (
-              <div style={{
-                background: "#fff", border: "1px solid #e8e8e8", borderRadius: 8,
-                padding: 40, textAlign: "center", color: "#888", fontSize: 14,
-              }}>
-                No products match the selected filters.
-              </div>
-            ) : (
-              filtered.slice((page - 1) * perPage, page * perPage).map(p => (
-                <ProductCard key={p.id} product={p} />
-              ))
-            )}
+            <div className="space-y-3">
+              {filtered.length === 0 ? (
+                <div className="bg-white border border-gray-200 rounded-lg p-12 text-center text-gray-400 text-sm">
+                  No products match the selected filters.
+                </div>
+              ) : (
+                filtered.slice((page - 1) * perPage, page * perPage).map(p => (
+                  <ProductCard key={p.id} product={p} />
+                ))
+              )}
+            </div>
 
             {/* ── PAGINATION ───────────────────────────── */}
-            <div style={{
-              background: "#fff", border: "1px solid #e8e8e8", borderRadius: 8,
-              padding: "12px 16px", display: "flex", alignItems: "center",
-              justifyContent: "space-between", marginTop: 8,
-            }}>
-              {/* Show per page */}
-              <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#555" }}>
+            <div className="bg-white border border-gray-200 rounded-lg p-3 px-4 flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">
+              <div className="flex items-center gap-2 text-[13px] text-gray-500">
                 Show
-                <select value={perPage} onChange={e => { setPerPage(Number(e.target.value)); setPage(1); }} style={{
-                  border: "1px solid #e0e0e0", borderRadius: 4,
-                  padding: "4px 8px", fontSize: 13, outline: "none",
-                  background: "#fff", cursor: "pointer", fontFamily: "inherit",
-                }}>
+                <select value={perPage} onChange={e => { setPerPage(Number(e.target.value)); setPage(1); }} className="border border-gray-200 rounded px-2 py-1 bg-white outline-none cursor-pointer hover:border-blue-500">
                   {[10, 20, 50].map(n => <option key={n}>{n}</option>)}
                 </select>
               </div>
 
-              {/* Page buttons */}
-              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <div className="flex items-center gap-1.5">
                 <PageBtn onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
                   <ChevronLeft />
                 </PageBtn>
@@ -550,65 +422,39 @@ export default function Products() {
       </div>
 
       {/* ── SUBSCRIBE BANNER ────────────────────────────────── */}
-      <div style={{
-        background: "#fff", borderTop: "1px solid #e8e8e8",
-        borderBottom: "1px solid #e8e8e8", padding: "28px 20px",
-        textAlign: "center", marginTop: 32,
-      }}>
-        <div style={{ maxWidth: 500, margin: "0 auto" }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 6px" }}>Subscribe on our newsletter</h3>
-          <p style={{ fontSize: 13, color: "#888", margin: "0 0 16px" }}>
+      <div className="bg-white border-y border-gray-200 py-10 px-5 text-center mt-12">
+        <div className="max-w-[500px] mx-auto">
+          <h3 className="text-lg font-bold mb-1.5">Subscribe on our newsletter</h3>
+          <p className="text-[13px] text-gray-400 mb-5">
             Get daily news on upcoming offers from many suppliers all over the world
           </p>
-          <div style={{
-            display: "flex", gap: 0, border: "1.5px solid #2563eb",
-            borderRadius: 7, overflow: "hidden", maxWidth: 380, margin: "0 auto",
-          }}>
+          <div className="flex border-2 border-blue-600 rounded-lg overflow-hidden max-w-[380px] mx-auto shadow-sm">
             <input
               type="email" placeholder="Email" value={email}
               onChange={e => setEmail(e.target.value)}
-              style={{
-                flex: 1, padding: "9px 14px", border: "none", outline: "none",
-                fontSize: 13, fontFamily: "inherit",
-              }}
+              className="flex-1 px-4 py-2 text-[13px] outline-none"
             />
-            <button style={{
-              background: "#2563eb", color: "#fff", border: "none",
-              padding: "0 20px", fontSize: 13, fontWeight: 600, cursor: "pointer",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#1d4ed8"}
-              onMouseLeave={e => e.currentTarget.style.background = "#2563eb"}
-            >Subscribe</button>
+            <button className="bg-blue-600 text-white px-5 py-2 text-[13px] font-semibold hover:bg-blue-700 transition-colors">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer style={{ background: "#1a1a2e", color: "#9ca3af", padding: "36px 20px 20px" }}>
-        <div style={{
-          maxWidth: 1200, margin: "0 auto",
-          display: "grid", gridTemplateColumns: "1.4fr repeat(4, 1fr) 1.2fr", gap: 32,
-        }}>
+      <footer className="bg-[#1a1a2e] text-gray-400 py-12 px-5">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* Brand */}
-          <div>
-            <div style={{
-              background: "#2563eb", color: "#fff", borderRadius: 6,
-              padding: "5px 12px", fontSize: 15, fontWeight: 700,
-              display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 12,
-            }}>🛒 Brand</div>
-            <div style={{ fontSize: 12, lineHeight: 1.7, marginBottom: 14 }}>
-              Best information about the company goes here but now lorem ipsum is
+          <div className="lg:col-span-1">
+            <div className="bg-blue-600 text-white rounded-md px-3 py-1.5 text-base font-bold inline-flex items-center gap-2 mb-4">
+              🛒 Brand
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
+            <p className="text-xs leading-relaxed mb-5 text-gray-500">
+              Best information about the company goes here but now lorem ipsum is
+            </p>
+            <div className="flex gap-2">
               {["f", "t", "in", "be", "yt"].map((s, i) => (
-                <div key={i} style={{
-                  width: 28, height: 28, borderRadius: "50%", background: "#374151",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, cursor: "pointer", color: "#9ca3af",
-                }}
-                  onMouseEnter={e => e.currentTarget.style.background = "#2563eb"}
-                  onMouseLeave={e => e.currentTarget.style.background = "#374151"}
-                >{s}</div>
+                <div key={i} className="w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-[10px] cursor-pointer hover:bg-blue-600 transition-colors uppercase font-bold">{s}</div>
               ))}
             </div>
           </div>
@@ -621,51 +467,39 @@ export default function Products() {
             { title: "For users",   links: ["Login", "Register", "Settings", "My Orders"] },
           ].map(col => (
             <div key={col.title}>
-              <h4 style={{ color: "#f9fafb", fontSize: 13, fontWeight: 600, margin: "0 0 12px" }}>{col.title}</h4>
-              {col.links.map(link => (
-                <div key={link} style={{ fontSize: 12, marginBottom: 8, cursor: "pointer" }}
-                  onMouseEnter={e => e.currentTarget.style.color = "#60a5fa"}
-                  onMouseLeave={e => e.currentTarget.style.color = "#9ca3af"}
-                >{link}</div>
-              ))}
+              <h4 className="text-gray-50 text-[13px] font-semibold mb-4 uppercase tracking-wider">{col.title}</h4>
+              <ul className="space-y-2">
+                {col.links.map(link => (
+                  <li key={link} className="text-xs hover:text-blue-400 cursor-pointer transition-colors">{link}</li>
+                ))}
+              </ul>
             </div>
           ))}
 
           {/* Get app */}
           <div>
-            <h4 style={{ color: "#f9fafb", fontSize: 13, fontWeight: 600, margin: "0 0 12px" }}>Get app</h4>
-            {[
-              { label: "App Store",   sub: "Download on the", icon: "🍎" },
-              { label: "Google Play", sub: "Get it on",        icon: "▶" },
-            ].map(app => (
-              <div key={app.label} style={{
-                display: "flex", alignItems: "center", gap: 10,
-                border: "1px solid #374151", borderRadius: 6,
-                padding: "8px 12px", marginBottom: 8, cursor: "pointer",
-                transition: "border-color .15s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = "#6b7280"}
-                onMouseLeave={e => e.currentTarget.style.borderColor = "#374151"}
-              >
-                <span style={{ fontSize: 20 }}>{app.icon}</span>
-                <div>
-                  <div style={{ fontSize: 10, color: "#9ca3af" }}>{app.sub}</div>
-                  <div style={{ fontSize: 13, color: "#f9fafb", fontWeight: 600 }}>{app.label}</div>
+            <h4 className="text-gray-50 text-[13px] font-semibold mb-4 uppercase tracking-wider">Get app</h4>
+            <div className="space-y-2">
+              {[
+                { label: "App Store",   sub: "Download on the", icon: "🍎" },
+                { label: "Google Play", sub: "Get it on",        icon: "▶" },
+              ].map(app => (
+                <div key={app.label} className="flex items-center gap-2.5 border border-gray-700 rounded-md px-3 py-2 cursor-pointer hover:border-gray-400 transition-colors bg-gray-800/50">
+                  <span className="text-xl">{app.icon}</span>
+                  <div>
+                    <div className="text-[9px] text-gray-500 leading-none mb-0.5">{app.sub}</div>
+                    <div className="text-[11px] text-white font-semibold leading-none">{app.label}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div style={{
-          maxWidth: 1200, margin: "24px auto 0",
-          borderTop: "1px solid #374151", paddingTop: 16,
-          display: "flex", justifyContent: "space-between",
-          alignItems: "center", fontSize: 12,
-        }}>
-          <span>© 2023 Ecommerce.</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#888" }}>
+        <div className="max-w-[1200px] mx-auto mt-12 border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-[12px] gap-4">
+          <span className="text-gray-500">© 2023 Ecommerce.</span>
+          <div className="flex items-center gap-2 text-gray-500 cursor-pointer hover:text-white transition-colors">
             <span>🇺🇸</span>
             <span>English</span>
             <ChevronDown />
@@ -679,17 +513,14 @@ export default function Products() {
 // ─── Pagination Button ─────────────────────────────────────────────────────────
 function PageBtn({ children, active, disabled, onClick }) {
   return (
-    <button onClick={onClick} disabled={disabled} style={{
-      minWidth: 32, height: 32, padding: "0 6px",
-      border: "1px solid",
-      borderColor: active ? "#2563eb" : "#e0e0e0",
-      borderRadius: 4, background: active ? "#2563eb" : "#fff",
-      color: active ? "#fff" : disabled ? "#ccc" : "#444",
-      fontSize: 13, fontWeight: active ? 600 : 400,
-      cursor: disabled ? "default" : "pointer",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      transition: "all .15s",
-    }}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`min-w-[32px] h-8 px-2.5 rounded border flex items-center justify-center text-[13px] transition-all
+        ${active ? "bg-blue-600 border-blue-600 text-white font-bold" :
+          disabled ? "bg-gray-50 border-gray-200 text-gray-300 cursor-default" :
+          "bg-white border-gray-200 text-gray-600 hover:border-blue-500 hover:text-blue-600 font-medium"}`}
+    >
       {children}
     </button>
   );
