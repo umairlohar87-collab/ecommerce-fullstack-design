@@ -23,16 +23,26 @@ app.get('/', (req, res) => {
   res.json({ message: 'Ecommerce API is running' });
 });
 
-// MongoDB Connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected successfully');
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`Server running on port ${process.env.PORT || 5000}`);
-    });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection failed:', err.message);
-    process.exit(1);
-  });
+// Cached MongoDB connection (works locally and on Vercel)
+let cachedDb = null;
+async function connectDB() {
+  if (cachedDb && mongoose.connection.readyState === 1) {
+    return cachedDb;
+  }
+  await mongoose.connect(process.env.MONGO_URI);
+  cachedDb = mongoose.connection;
+  console.log('MongoDB connected');
+  return cachedDb;
+}
+
+// Middleware to ensure DB is connected on every request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: 'Database connection failed' });
+  }
+});
+
+module.exports = app;  
